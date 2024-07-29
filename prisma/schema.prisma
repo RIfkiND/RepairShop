@@ -13,6 +13,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+model Admin {
+  id String @id @default(uuid())
+  name String @unique
+  email String @unique
+  password String 
+  image  String?
+}
 model Account {
   id                 String    @id @default(uuid())
   userId             String
@@ -50,6 +58,10 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
+  device        Devices[]
+  repair_request Repair_Request[]
+  review Review[]
+  transactions Transactions[]
 }
 
 model VerificationRequest {
@@ -63,3 +75,108 @@ model VerificationRequest {
   @@unique([identifier, token])
 }
 
+
+model type {
+  id String @id @default(uuid())
+  name String
+  device  Devices[]
+}
+model Brand {
+  id String @id @default(uuid())
+  name String 
+  device Devices[]
+  parts Parts[]
+}
+
+model Model {
+  id String @id @default(uuid())
+  name String
+   device Devices[]
+  parts Parts[]
+}
+model Devices {
+id String @id @default(uuid())
+user User @relation(fields: [userId] ,references: [id])
+userId  String
+type type @relation(fields: [typeId], references: [id])
+typeId String
+device_name String
+brand  Brand @relation(fields: [brandId],references: [id])
+brandId String
+model Model @relation(fields: [modelId],references: [id])
+modelId String
+serial_number String @unique
+repair_request Repair_Request[]
+}
+
+model Repair_Request{
+  id String @id @default(uuid())
+  name String
+  user User @relation(fields: [userId],references: [id])
+  userId String
+  device Devices @relation(fields: [deviceId],references: [id])
+  deviceId String
+  problem String
+  status STATUS @default(PENDING)
+  request_date DateTime @default(now())
+  complete_date DateTime
+  repair Repairs[]
+}
+
+model Repairs{
+  id String @id @default(uuid())
+  request Repair_Request @relation(fields: [requestId] ,references: [id])
+  requestId String 
+  repair_details String
+  cost Decimal
+  repair_date DateTime @default(now())
+  repair_parts Repair_Parts[]
+}
+
+model Repair_Parts{
+  id String @id @default(uuid())
+  repair Repairs @relation(fields: [repairId],references: [id])
+  repairId  String
+  quantity  Int @db.SmallInt
+  total_cost Decimal
+}
+
+
+
+model Parts{
+  id String @id @default(uuid())
+  name String
+  brand Brand @relation(fields: [brandId],references: [id])
+  brandId String
+  model Model @relation(fields: [modelId],references: [id])
+  modelId String
+  cost Decimal
+  stock Int @db.SmallInt
+}
+
+
+
+model Review{
+  id String @id @default(uuid())
+  user User @relation(fields: [userId],references: [id])
+  userId  String
+  rating Int @db.SmallInt
+  comment String @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime 
+}
+
+model Transactions {
+  id String @id @default(uuid())
+  user User  @relation(fields: [userId],references: [id])
+  userId String 
+  number String 
+  snap_token String?
+  status  STATUS @default(PENDING)
+  createdAt DateTime @default(now())
+}
+enum STATUS{
+  PENDING 
+  PROSESS
+  COMPLETED
+}
