@@ -86,6 +86,8 @@ model Brand {
   name String 
   device Devices[]
   parts Parts[]
+
+@@map("brands")
 }
 
 model Model {
@@ -93,6 +95,7 @@ model Model {
   name String
    device Devices[]
   parts Parts[]
+  @@map("models")
 }
 model Devices {
 id String @id @default(uuid())
@@ -107,6 +110,7 @@ model Model @relation(fields: [modelId],references: [id])
 modelId String
 serial_number String @unique
 repair_request Repair_Request[]
+
 }
 
 model Repair_Request{
@@ -131,6 +135,7 @@ model Repairs{
   cost Decimal
   repair_date DateTime @default(now())
   repair_parts Repair_Parts[]
+
 }
 
 model Repair_Parts{
