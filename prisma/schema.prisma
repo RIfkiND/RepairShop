@@ -84,6 +84,7 @@ model type {
 model Brand {
   id String @id @default(uuid())
   name String 
+  image String
   device Devices[]
   parts Parts[]
 
@@ -93,6 +94,7 @@ model Brand {
 model Model {
   id String @id @default(uuid())
   name String
+  image String
    device Devices[]
   parts Parts[]
   @@map("models")
@@ -121,6 +123,7 @@ model Repair_Request{
   device Devices @relation(fields: [deviceId],references: [id])
   deviceId String
   problem String
+  file String
   status STATUS @default(PENDING)
   request_date DateTime @default(now())
   complete_date DateTime
@@ -155,6 +158,7 @@ model Parts{
   brandId String
   model Model @relation(fields: [modelId],references: [id])
   modelId String
+  image String 
   cost Decimal
   stock Int @db.SmallInt
 }
@@ -167,6 +171,7 @@ model Review{
   userId  String
   rating Int @db.SmallInt
   comment String @db.Text
+  file String? 
   createdAt DateTime @default(now())
   updatedAt DateTime 
 }

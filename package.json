@@ -8,10 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "prisma": {
-    "seed": "ts-node prisma/seeder/seed.ts"
-  },
   "dependencies": {
+    "@headlessui/react": "^2.1.2",
+    "@heroicons/react": "^2.1.5",
     "@next-auth/prisma-adapter": "^1.0.7",
     "@prisma/adapter-pg": "^5.17.0",
     "@prisma/client": "^5.17.0",
