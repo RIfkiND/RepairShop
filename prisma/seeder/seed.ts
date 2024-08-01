@@ -1,11 +1,9 @@
 import { PrismaClient  } from "@prisma/client";
 
-
-
 const db = new PrismaClient()
 
 async function main(){
-   
+  
 }
 main()
   .then(async () => {

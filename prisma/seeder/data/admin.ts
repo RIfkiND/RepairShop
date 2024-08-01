@@ -1,3 +1,3 @@
-export const admins = [
+export const admins = ()=>{
     
-]
+}
