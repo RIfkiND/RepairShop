@@ -6,16 +6,14 @@ import { auth } from "./auth";
 
 const protectedRoutes = ["/middleware"];
 
-const adminpanel = ["/admin"];
+
 export default async function middleware(request: NextRequest) {
   const session = await auth();
 
   const isProtected = protectedRoutes.some((route) =>
     request.nextUrl.pathname.startsWith(route),
   );
-  const ProtectedAdminRoute = adminpanel.some((route) =>
-    request.nextUrl.pathname.startsWith(route),
-  );
+
 
   if (!session && isProtected) {
     const absoluteURL = new URL("/", request.nextUrl.origin);

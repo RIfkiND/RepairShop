@@ -1,4 +1,20 @@
 "use client";
+import { Copy } from "lucide-react"
+ 
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+ 
 import Link from "next/link";
 import ThemeChanger from "./DarkSwitch";
 import Image from "next/image";
@@ -107,6 +123,7 @@ export const Navbar = () => {
           >
             Sign In
           </Link>
+          
           <div className="mr-5  mt-2 flex list-none items-center justify-end gap-2 2xsm:gap-4">
             <DarkModeSwitcher />
           </div>
