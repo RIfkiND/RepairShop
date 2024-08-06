@@ -1,7 +1,6 @@
 "use client";
-import { Copy } from "lucide-react"
- 
-import { Button } from "@/components/ui/button"
+import { Mail, Twitter, Facebook } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -11,10 +10,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
- 
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
 import Link from "next/link";
 import ThemeChanger from "./DarkSwitch";
 import Image from "next/image";
@@ -117,13 +116,31 @@ export const Navbar = () => {
         </div>
         {/* Desktop*/}
         <div className="nav__item mr-3 hidden space-x-4 lg:flex ">
-          <Link
-            href="/admin/auth/signin"
-            className="rounded-md bg-indigo-600 px-6 py-2 text-white md:ml-5"
-          >
-            Sign In
-          </Link>
-          
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="rounded-md bg-indigo-600 px-6 py-2 text-white md:ml-5">
+                Sign In
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle className="mb-5">Chose Your Social Account </DialogTitle>
+              </DialogHeader>
+
+              <Button>
+                <Mail className="mr-2 h-4 w-4" /> Login with Email
+              </Button>
+
+              <Button>
+                <Twitter className="mr-2 h-4 w-4" /> Login with Twitter
+              </Button>
+
+              <Button>
+                <Facebook className="mr-2 h-4 w-4" /> Login with FaceBook
+              </Button>
+            </DialogContent>
+          </Dialog>
+
           <div className="mr-5  mt-2 flex list-none items-center justify-end gap-2 2xsm:gap-4">
             <DarkModeSwitcher />
           </div>
