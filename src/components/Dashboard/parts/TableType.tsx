@@ -1,29 +1,11 @@
 import { Package } from "@/types/package";
-
+import { ModalType } from "../Dialog/ModalType";
 const packageData: Package[] = [
   {
-    name: "Free package",
+    name: "Laptop Dell",
     price: 0.0,
     invoiceDate: `Jan 13,2023`,
-    status: "Paid",
-  },
-  {
-    name: "Standard Package",
-    price: 59.0,
-    invoiceDate: `Jan 13,2023`,
-    status: "Paid",
-  },
-  {
-    name: "Business Package",
-    price: 99.0,
-    invoiceDate: `Jan 13,2023`,
-    status: "Unpaid",
-  },
-  {
-    name: "Standard Package",
-    price: 59.0,
-    invoiceDate: `Jan 13,2023`,
-    status: "Pending",
+    status: "Avalible",
   },
 ];
 
@@ -31,14 +13,21 @@ const TableThree = () => {
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
+        <div className="mb-2 flex justify-end">
+          <h4 className="flex flex-1 text-xl font-semibold text-black dark:text-white ">
+            Type
+          </h4>
+          <ModalType />
+        </div>
+
         <table className="w-full table-auto">
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
               <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
-                Package
+                Name
               </th>
               <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
-                Invoice date
+                Di buat
               </th>
               <th className="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">
                 Status
@@ -65,7 +54,7 @@ const TableThree = () => {
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <p
                     className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium ${
-                      packageItem.status === "Paid"
+                      packageItem.status === "Avalible"
                         ? "bg-success text-success"
                         : packageItem.status === "Unpaid"
                           ? "bg-danger text-danger"

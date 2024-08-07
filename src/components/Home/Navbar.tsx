@@ -1,5 +1,5 @@
 "use client";
-import { Mail, Twitter, Facebook } from "lucide-react";
+import { Mail, Twitter, Facebook ,LogIn} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,7 +15,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import Link from "next/link";
-import ThemeChanger from "./DarkSwitch";
 import Image from "next/image";
 import { Disclosure } from "@headlessui/react";
 import DarkModeSwitcher from "../Header/DarkModeSwitcher";
@@ -27,6 +26,8 @@ export const Navbar = () => {
     <div className="w-full">
       <nav className="container relative mx-auto flex flex-wrap items-center justify-between p-8 lg:justify-between xl:px-0">
         {/* Logo  */}
+
+        {/* Menu Mobile */}
         <Disclosure>
           {({ open }) => (
             <>
@@ -86,12 +87,34 @@ export const Navbar = () => {
                         {item}
                       </Link>
                     ))}
-                    <Link
-                      href="/"
-                      className="mt-3 w-full rounded-md bg-indigo-600 px-6 py-2 text-center text-white lg:ml-5"
-                    >
-                      Get Started
-                    </Link>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button className="mt-3 w-full rounded-md bg-indigo-600 px-6 py-2 text-center text-white lg:ml-5">
+                         <LogIn className="mr-2 "/> Sign In
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                          <DialogTitle className="mb-5">
+                            Chose Your Social Account{" "}
+                          </DialogTitle>
+                        </DialogHeader>
+
+                        <Button>
+                          <Mail className="mr-2 h-4 w-4" /> Login with Email
+                        </Button>
+
+                        <Button>
+                          <Twitter className="mr-2 h-4 w-4" /> Login with
+                          Twitter
+                        </Button>
+
+                        <Button>
+                          <Facebook className="mr-2 h-4 w-4" /> Login with
+                          FaceBook
+                        </Button>
+                      </DialogContent>
+                    </Dialog>
                   </>
                 </Disclosure.Panel>
               </div>
@@ -124,7 +147,9 @@ export const Navbar = () => {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle className="mb-5">Chose Your Social Account </DialogTitle>
+                <DialogTitle className="mb-5">
+                  Chose Your Social Account{" "}
+                </DialogTitle>
               </DialogHeader>
 
               <Button>

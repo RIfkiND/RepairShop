@@ -14,12 +14,11 @@ export default function Home() {
         <Navbar/>
       <Hero />
       <SectionTitle
-        preTitle="Nextly Benefits"
-        title=" Why should you use this landing page"
+        preTitle="DeRepair Benefits"
+        title="Why you Should Trust Us"
       >
-        Nextly is a free landing page & marketing website template for startups
-        and indie projects. Its built with Next.js & TailwindCSS. And its
-        completely open-source.
+       DeRepair has repaired many devices ranging 
+       from PCs, cellphones, laptops, printers and digital watches
       </SectionTitle>
 
       <Benefits data={benefitOne} />
