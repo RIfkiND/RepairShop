@@ -90,7 +90,7 @@ export const Navbar = () => {
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button className="mt-3 w-full rounded-md bg-indigo-600 px-6 py-2 text-center text-white lg:ml-5">
-                         <LogIn className="mr-2 "/> Sign In
+                         <Mail className="mr-2 "/> Send Us An Email
                         </Button>
                       </DialogTrigger>
                       <DialogContent className="sm:max-w-[425px]">
@@ -139,32 +139,7 @@ export const Navbar = () => {
         </div>
         {/* Desktop*/}
         <div className="nav__item mr-3 hidden space-x-4 lg:flex ">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className="rounded-md bg-indigo-600 px-6 py-2 text-white md:ml-5">
-                Sign In
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle className="mb-5">
-                  Chose Your Social Account{" "}
-                </DialogTitle>
-              </DialogHeader>
-
-              <Button>
-                <Mail className="mr-2 h-4 w-4" /> Login with Email
-              </Button>
-
-              <Button>
-                <Twitter className="mr-2 h-4 w-4" /> Login with Twitter
-              </Button>
-
-              <Button>
-                <Facebook className="mr-2 h-4 w-4" /> Login with FaceBook
-              </Button>
-            </DialogContent>
-          </Dialog>
+        
 
           <div className="mr-5  mt-2 flex list-none items-center justify-end gap-2 2xsm:gap-4">
             <DarkModeSwitcher />

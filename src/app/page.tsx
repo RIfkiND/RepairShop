@@ -7,7 +7,10 @@ import { Testimonials } from "@/components/Home/Testimonials";
 import { Faq } from "@/components/Home/Faq";
 import { Cta } from "@/components/Home/Cta";
 import { Navbar } from "@/components/Home/Navbar";
+import {FloatRequest} from "@/components/Home/FloatRequest";
 import { benefitOne, benefitTwo } from  "@/components/Home/data";
+import { Button } from "@/components/ui/button";
+
 export default function Home() {
   return (
     <Container>
@@ -49,9 +52,10 @@ export default function Home() {
         Answer your customers possible questions here, it will increase the
         conversion rate as well as support or chat requests.
       </SectionTitle>
-
+    <FloatRequest/>
       <Faq />
       <Cta />
+      
     </Container>
   );
 }
