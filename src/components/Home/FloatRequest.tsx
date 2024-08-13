@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import TipTap from "@/components/common/editor/TipTap"
+import Tiptap from "../common/editor/TipTap";
 export function FloatRequest() {
     return (
       <Dialog>
@@ -44,11 +44,7 @@ export function FloatRequest() {
               <Label htmlFor="username" className="text-right">
                 Username
               </Label>
-              <Input
-                id="username"
-                defaultValue="@peduarte"
-                className="col-span-3"
-              />
+              <Tiptap/>
             </div>
           </div>
           <DialogFooter>
