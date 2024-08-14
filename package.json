@@ -10,7 +10,9 @@
     "email": "email dev"
   },
   "dependencies": {
+    "@ant-design/nextjs-registry": "^1.0.1",
     "@auth/prisma-adapter": "^2.4.2",
+    "@editorjs/editorjs": "^2.30.5",
     "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.5",
     "@prisma/adapter-pg": "^5.17.0",
@@ -22,6 +24,7 @@
     "@tiptap/pm": "^2.6.0",
     "@tiptap/react": "^2.6.0",
     "@tiptap/starter-kit": "^2.6.0",
+    "antd": "^5.20.1",
     "apexcharts": "^3.45.2",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
@@ -38,6 +41,7 @@
     "react-dom": "^18",
     "react-email": "2.1.6",
     "react-hook-form": "^7.52.2",
+    "react-quill": "^2.0.0",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
