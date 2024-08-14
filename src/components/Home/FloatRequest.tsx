@@ -12,7 +12,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
+import Uploader from "../common/Upload/Uploader";
+import Editor from "../common/editor/Editor"
 export function FloatRequest() {
     return (
       <Dialog>
@@ -22,7 +23,7 @@ export function FloatRequest() {
         </Button>
 
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[650px] fixed" >
+        <DialogContent className="sm:max-w-[650px] overflow-y-auto scrollbar-none dark:bg-boxdark-2 sm:max-h-[700px]" >
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
             <DialogDescription>
@@ -37,7 +38,7 @@ export function FloatRequest() {
               <Input
                 id="name"
                 placeholder="name.."
-                className="col-span-3  text-black dark:text-white"
+                className="col-span-3 text-black dark:text-black dark:bg-white"
               />
             </div>
             <div className="flex flex-col justify-center  gap-4">
@@ -47,7 +48,7 @@ export function FloatRequest() {
               <Input
                 id="email"
                 placeholder="example@.gmail.com"
-                className="col-span-3 text-black dark:text-white"
+                className="col-span-3 text-black dark:text-black dark:bg-white"
               />
             </div>
             <div className="flex flex-col justify-center gap-4">
@@ -57,31 +58,23 @@ export function FloatRequest() {
               <Input
                 id="Phone Number"
                 placeholder="+62"
-                className="col-span-3 text-black dark:text-white"
+                className="col-span-3 text-black dark:text-black dark:bg-white"
               />
             </div>
             <div className="flex flex-col justify-center gap-4">
             <Label htmlFor="Email" className="text-left text-black dark:text-white">
               File
               </Label>
-              <Input
-                id="Phone Number"
-                placeholder="+62"
-                className="col-span-3 text-black dark:text-white"
-              />
+             <Uploader/>
             </div>
             <div className="flex flex-col justify-center gap-4">
             <Label htmlFor="Email" className="text-left text-black dark:text-white">
                Deskirption  
               </Label>
-              <Input
-                id="Phone Number"
-                placeholder="+62"
-                className="col-span-3 text-black dark:text-white"
-              />
+      <Editor/>
             </div>
           </div>
-          <DialogFooter>
+          <DialogFooter className="mt-5">
             <Button type="submit">Save changes</Button>
           </DialogFooter>
         </DialogContent>
