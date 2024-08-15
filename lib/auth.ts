@@ -3,7 +3,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { db } from "./db";
-import { saltAndHashPassword } from "./utils/helper";
+import { saltAndHashPassword } from "../utils/helper";
 import Google from "next-auth/providers/GOOGLE";
 
 export const {

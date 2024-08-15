@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Body,
   Container,
@@ -5,15 +6,14 @@ import {
   Head,
   Hr,
   Html,
-  Img,
   Link,
   Preview,
   Row,
   Section,
   Text,
 } from "@react-email/components";
-import * as React from "react";
-
+import {Img} from "@react-email/img"
+import * as React from "react"
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "";
@@ -29,10 +29,10 @@ export const AppleReceiptEmail = () => (
           <Row>
             <Column>
               <Img
-                src={`${baseUrl}/static/apple-logo.png`}
+                src="/public/img/derepair-high-resolution-logo-transparent.png"
                 width="42"
                 height="42"
-                alt="Apple Logo"
+                alt=" Logo"
               />
             </Column>
 
@@ -57,7 +57,7 @@ export const AppleReceiptEmail = () => (
               <Section>
                 <Row>
                   <Column style={informationTableColumn}>
-                    <Text style={informationTableLabel}>APPLE ID</Text>
+                    <Text style={informationTableLabel}>Customer Email</Text>
                     <Link
                       style={{
                         ...informationTableValue,
@@ -201,66 +201,8 @@ export const AppleReceiptEmail = () => (
           </Row>
         </Section>
         <Hr style={walletBottomLine} />
-        <Text style={footerText}>
-          1. 3% savings is earned as Daily Cash and is transferred to your Apple
-          Cash card when transactions post to your Apple Card account. If you do
-          not have an Apple Cash card, Daily Cash can be applied by you as a
-          credit on your statement balance. 3% is the total amount of Daily Cash
-          earned for these purchases. See the Apple Card Customer Agreement for
-          more details on Daily Cash and qualifying transactions.
-        </Text>
-        <Text style={footerText}>2. Subject to credit approval.</Text>
-        <Text style={footerText}>
-          To access and use all the features of Apple Card, you must add Apple
-          Card to Wallet on an iPhone or iPad with iOS or iPadOS 13.2 or later.
-          Update to the latest version of iOS or iPadOS by going to Settings
-          &gt; General &gt; Software Update. Tap Download and Install.
-        </Text>
-        <Text style={footerText}>
-          Available for qualifying applicants in the United States.
-        </Text>
-        <Text style={footerText}>
-          Apple Card is issued by Goldman Sachs Bank USA, Salt Lake City Branch.
-        </Text>
-        <Text style={footerText}>
-          If you reside in the US territories, please call Goldman Sachs at
-          877-255-5923 with questions about Apple Card.
-        </Text>
-        <Text style={footerTextCenter}>
-          Privacy: We use a
-          <Link href="http://support.apple.com/kb/HT207233" style={footerLink}>
-            {" "}
-            Subscriber ID{" "}
-          </Link>
-          to provide reports to developers.
-        </Text>
-        <Text style={footerTextCenter}>
-          Get help with subscriptions and purchases.
-          <Link
-            href="https://support.apple.com/billing?cid=email_receipt"
-            style={footerLink}
-          >
-            Visit Apple Support.
-          </Link>
-        </Text>
-        <Text style={footerTextCenter}>
-          Learn how to{" "}
-          <Link href="https://support.apple.com/kb/HT204030?cid=email_receipt_itunes_article_HT204030">
-            manage your password preferences
-          </Link>{" "}
-          for iTunes, Apple Books, and App Store purchases.
-        </Text>
-
-        <Text style={footerTextCenter}>
-          {" "}
-          You have the option to stop receiving email receipts for your
-          subscription renewals. If you have opted out, you can still view your
-          receipts in your account under Purchase History. To manage receipts or
-          to opt in again, go to{" "}
-          <Link href="https://finance-app.itunes.apple.com/account/subscriptions?unsupportedRedirectUrl=https://apps.apple.com/US/invoice">
-            Account Settings.
-          </Link>
-        </Text>
+      
+       
         <Section>
           <Row>
             <Column align="center" style={footerIcon}>

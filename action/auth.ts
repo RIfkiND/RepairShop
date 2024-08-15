@@ -1,7 +1,7 @@
 "use server";
 
-import { signIn, signOut } from "../auth";
-import { db } from "../db";
+import { signIn, signOut } from "../lib/auth";
+import { db } from "../lib/db";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 
