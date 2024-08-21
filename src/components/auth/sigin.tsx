@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-
+import { loginWithCreds } from "@/lib/actions";
 import { Metadata } from "next";
 import DarkModeSwitcher from '@/components/Header/DarkModeSwitcher';
 
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 };
 
 const SignIn: React.FC = () => {
+
    return (
   
       <div className="container mx-auto h-screen">
@@ -182,13 +183,15 @@ const SignIn: React.FC = () => {
                 Sign In to TailAdmin
               </h2>
 
-              <form>
+              <form action={loginWithCreds}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
                   </label>
                   <div className="relative">
                     <input
+                      id="Email"
+            name="email"
                       type="email"
                       placeholder="Enter your email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -220,6 +223,8 @@ const SignIn: React.FC = () => {
                   </label>
                   <div className="relative">
                     <input
+                       name="password"
+            id="password" 
                       type="password"
                       placeholder="6+ Characters, 1 Capital letter"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"

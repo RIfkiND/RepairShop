@@ -1,7 +1,7 @@
 "use server";
 
-import { signIn, signOut } from "../lib/auth";
-import { db } from "../lib/db";
+import { signIn,signOut } from "../../auth/auth";
+import { db } from "../../config/db";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 
@@ -33,7 +33,7 @@ export const loginWithCreds = async (formData: FormData) => {
   const rawFormData = {
     email: formData.get("email"),
     password: formData.get("password"),
-    redirectTo: "/",
+    redirectTo: "/admin/dashboard",
   };
 
   const existingUser = await getUserByEmail(formData.get("email") as string);
