@@ -2,14 +2,14 @@ import React from 'react';
 import UserName from "./UserName";
 
 // Define the type for the session prop
-interface Session {
+interface session {
   user?: {
     name: string;
   };
 }
 
 interface DashboardProps {
-  session: Session;
+  session: session;
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ session }) => {

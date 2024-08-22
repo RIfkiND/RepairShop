@@ -1,13 +1,13 @@
 // middleware.ts
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { auth } from '../auth/auth';  // Ensure the path is correct
+import { auth } from '../auth/auth';  
 
 const protectedRoutes = ['/admin/dashboard'];
 
 export default async function middleware(request: NextRequest) {
-  // Check the session or authentication
-  const session = await auth(); // Ensure this function works correctly and returns expected results
+
+  const session = await auth(); 
 
   const isProtected = protectedRoutes.some((route) =>
     request.nextUrl.pathname.startsWith(route)
@@ -18,11 +18,10 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.redirect(absoluteURL);
   }
 
-  // Allow the request to proceed
   return NextResponse.next();
 }
 
-// Middleware configuration
+
 export const config = {
-  matcher: ['/admin/dashboard:path*'], // Adjust this pattern as needed
+  matcher: ['/admin/dashboard/:path*'], 
 };
