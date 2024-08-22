@@ -3,14 +3,15 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { db } from "../config/db";
-
-
 export const {
   handlers: { GET, POST },
   signIn,
   signOut,
   auth,
 } = NextAuth({
+  pages: {
+signIn: 'admin/signin'
+  },
   secret: process.env.AUTH_SECRET,
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
@@ -54,5 +55,4 @@ export const {
       },
     }),
   ],
-  
 });
