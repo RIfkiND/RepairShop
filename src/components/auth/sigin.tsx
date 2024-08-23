@@ -1,19 +1,24 @@
 'use client'
 import React from "react";
 import Link from "next/link";
+import { useForm } from 'react-hook-form';
 import Image from "next/image";
 import { loginWithCreds } from "@/lib/actions";
 import { Metadata } from "next";
 import DarkModeSwitcher from '@/components/Header/DarkModeSwitcher';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { SiginSchema } from "@/schemas/SigInSchma";
 
-
-export const metadata: Metadata = {
-  title: "Next.js SignIn Page | TailAdmin - Next.js Dashboard Template",
-  description: "This is Next.js Signin Page TailAdmin Dashboard Template",
-};
 
 const SignIn: React.FC = () => {
-
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(SiginSchema),
+  });
    return (
   
       <div className="container mx-auto h-screen">
@@ -23,26 +28,11 @@ const SignIn: React.FC = () => {
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="px-26 py-17.5 text-center">
               <Link className="mb-5.5 inline-block" href="/">
-                <Image
-                  className="hidden dark:block"
-                  src={"/images/logo/logo.svg"}
-                  alt="Logo"
-                  width={176}
-                  height={32}
-                />
-                <Image
-                  className="dark:hidden"
-                  src={"/images/logo/logo-dark.svg"}
-                  alt="Logo"
-                  width={176}
-                  height={32}
-                />
+                
+             <h1 className=" text-4xl font-bold">De Repair Admin</h1>
               </Link>
 
-              <p className="2xl:px-20">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                suspendisse.
-              </p>
+            
 
               <span className="mt-15 inline-block">
                 <svg
@@ -178,9 +168,9 @@ const SignIn: React.FC = () => {
          
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
 
-              <span className="mb-1.5 block font-medium">Start for free</span>
+              <span className="mb-1.5 block font-medium">Admin Login</span>
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                Sign In to TailAdmin
+                Admin
               </h2>
 
               <form action={loginWithCreds}>

@@ -20,7 +20,7 @@ import { Disclosure } from "@headlessui/react";
 import DarkModeSwitcher from "../Header/DarkModeSwitcher";
 
 export const Navbar = () => {
-  const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
+  const navigation = ["Product",  "View Our Work", "Blog"];
 
   return (
     <div className="w-full">
