@@ -4,21 +4,33 @@ import Link from "next/link";
 import { useForm } from 'react-hook-form';
 import Image from "next/image";
 import { loginWithCreds } from "@/lib/actions";
-import { Metadata } from "next";
 import DarkModeSwitcher from '@/components/Header/DarkModeSwitcher';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { SiginSchema } from "@/schemas/SigInSchma";
+import z from "zod"
 
-
+type SiginFormData = z.infer<typeof SiginSchema>
 const SignIn: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<SiginFormData>({
     resolver: zodResolver(SiginSchema),
   });
+  const AdminLogin = async (data: SiginFormData) => {
+    const formData = new FormData();
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+  
+    const result = await loginWithCreds(formData);
+    if (result.error) {
+      console.error(result.error);
+      // Handle the error (e.g., display a message to the user)
+    } else if (result.success) {
+      // Handle successful login (e.g., redirect to dashboard)
+    }
+  };
    return (
   
       <div className="container mx-auto h-screen">
@@ -173,19 +185,21 @@ const SignIn: React.FC = () => {
                 Admin
               </h2>
 
-              <form action={loginWithCreds}>
+              <form  onSubmit={handleSubmit(AdminLogin)}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
                   </label>
                   <div className="relative">
                     <input
+                    {...register('email')}
                       id="Email"
             name="email"
                       type="email"
                       placeholder="Enter your email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
+          {errors.email?.message && <p className=" text-red">{errors.email.message}</p>}
 
                     <span className="absolute right-4 top-4">
                       <svg
@@ -213,13 +227,14 @@ const SignIn: React.FC = () => {
                   </label>
                   <div className="relative">
                     <input
+                    {...register('password')}
                        name="password"
             id="password" 
                       type="password"
                       placeholder="6+ Characters, 1 Capital letter"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
-
+  {errors.password?.message && <p className="text-red">{errors.password.message}</p>}
                     <span className="absolute right-4 top-4">
                       <svg
                         className="fill-current"

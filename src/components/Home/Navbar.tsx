@@ -82,7 +82,7 @@ export const Navbar = () => {
                       <Link
                         key={index}
                         href="/"
-                        className="text-gray-500 dark:text-gray-300 dark:focus:bg-gray-800 -ml-4 w-full rounded-md px-4 py-2 hover:text-indigo-500 focus:bg-indigo-100 focus:text-indigo-500 focus:outline-none"
+                        className="text-gray-500 font-semibold dark:text-gray-300 dark:focus:bg-gray-800 -ml-4 w-full rounded-md px-4 py-2 hover:text-indigo-500 focus:bg-indigo-100 focus:text-indigo-500 focus:outline-none"
                       >
                         {item}
                       </Link>
@@ -105,7 +105,7 @@ export const Navbar = () => {
                         </Button>
 
                         <Button>
-                          <Twitter className="mr-2 h-4 w-4" /> Login with
+                          <Twitter className="mr-2 h-4 w-4" /> Login with1
                           Twitter
                         </Button>
 
@@ -129,7 +129,7 @@ export const Navbar = () => {
               <li className="nav__item mr-3" key={index}>
                 <Link
                   href="/"
-                  className="text-gray-800 dark:text-gray-200 dark:focus:bg-gray-800 inline-block rounded-md px-4 py-2 text-lg font-normal no-underline hover:text-indigo-500 focus:bg-indigo-100 focus:text-indigo-500 focus:outline-none"
+                  className="text-gray-200 font-semibold dark:text-gray-200 dark:focus:bg-gray-800 inline-block rounded-md px-4 py-2 text-lg no-underline hover:text-indigo-500 focus:bg-indigo-100 focus:text-indigo-500 focus:outline-none"
                 >
                   {menu}
                 </Link>

@@ -70,7 +70,7 @@ const menuGroups = [
           </svg>
         ),
         label: "Calendar",
-        route: "/calendar",
+        route: "/admin/dashboard/calendar",
       },
       {
         icon: (
