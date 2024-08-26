@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Product } from "@/types/product";
+import { ModalParts } from "../Dialog/ModalParts";
 
 const productData: Product[] = [  
   {
@@ -10,44 +11,22 @@ const productData: Product[] = [
     sold: 22,
     profit: 45,
   },
-  {
-    image: "/images/product/product-02.png",
-    name: "Macbook Pro M1",
-    category: "Electronics",
-    price: 546,
-    sold: 12,
-    profit: 125,
-  },
-  {
-    image: "/images/product/product-03.png",
-    name: "Dell Inspiron 15",
-    category: "Electronics",
-    price: 443,
-    sold: 64,
-    profit: 247,
-  },
-  {
-    image: "/images/product/product-04.png",
-    name: "HP Probook 450",
-    category: "Electronics",
-    price: 499,
-    sold: 72,
-    profit: 103,
-  },
+
 ];
 
 const TableTwo = () => {
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-      <div className="px-4 py-6 md:px-6 xl:px-7.5">
-        <h4 className="text-xl font-semibold text-black dark:text-white flex flex-1 ">
+      <div className=" flex px-4 py-6 md:px-6 xl:px-7.5">
+        <h4 className=" text-xl font-semibold text-black dark:text-white flex flex-1 ">
         Parts
         </h4>
+        <ModalParts/>
       </div>
       
       <div className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
         <div className="col-span-3 flex items-center">
-          <p className="font-medium">Product Name</p>
+          <p className="font-medium">Parts Name</p>
         </div>
         <div className="col-span-2 hidden items-center sm:flex">
           <p className="font-medium">type</p>

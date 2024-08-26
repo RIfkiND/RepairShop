@@ -1,6 +1,6 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableOne from "@/components/Tables/TableOne";
-import TableThree from "@/components/Tables/TableThree";
+import TableHistory from "@/components/Dashboard/History/TableHistory"
 import TableTwo from "@/components/Tables/TableTwo";
 
 import { Metadata } from "next";
@@ -18,9 +18,7 @@ const TablesPage = () => {
       <Breadcrumb pageName="Tables" />
 
       <div className="flex flex-col gap-10">
-        <TableOne />
-        <TableTwo />
-        <TableThree />
+        <TableHistory />
       </div>
     </DefaultLayout>
   );

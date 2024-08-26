@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {Plus} from "lucide-react"
-export function     ModalType() {
+export function ModalParts() {
   return (
     <Dialog >
       <DialogTrigger asChild>
