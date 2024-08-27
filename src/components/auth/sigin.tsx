@@ -10,6 +10,7 @@ import { SiginSchema } from "@/schemas/SigInSchma";
 import z from "zod"
 
 type SiginFormData = z.infer<typeof SiginSchema>
+
 const SignIn: React.FC = () => {
   const {
     register,

@@ -6,7 +6,6 @@ import ChartTwo from "../Charts/ChartTwo";
 import TableOne from "../Tables/TableOne";
 import CardDataStats from "../CardDataStats";
 
-
 const ChartThree = dynamic(() => import("@/components/Charts/ChartThree"), {
   ssr: false,
 });
@@ -15,7 +14,7 @@ const ECommerce: React.FC = () => {
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-      <CardDataStats title="Total Profit" total="$45,2K" rate="4.35%" levelUp>
+        <CardDataStats title="Total Profit" total="$45,2K" rate="4.35%" levelUp>
           <svg
             className="fill-primary dark:fill-white"
             width="20"
@@ -39,7 +38,7 @@ const ECommerce: React.FC = () => {
           </svg>
         </CardDataStats>
 
-        <CardDataStats title="Total views" total="$3.456K" rate="0.43%" levelUp>
+        <CardDataStats title="Total Completed" total="$3.456K" rate="0.43%" levelUp>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -58,9 +57,10 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-       
-        <CardDataStats title="Total Product" total="2.450" rate="2.59%" levelUp>
-          <svg
+
+        <CardDataStats title="Total Parts" total="2.450" rate="2.59%" levelUp>
+         
+          {/* <svg
             className="fill-primary dark:fill-white"
             width="22"
             height="22"
@@ -76,7 +76,7 @@ const ECommerce: React.FC = () => {
               d="M14.3345 5.29375C13.922 5.39688 13.647 5.80938 13.7501 6.22188C13.7845 6.42813 13.8189 6.63438 13.8189 6.80625C13.8189 8.35313 12.547 9.625 11.0001 9.625C9.45327 9.625 8.1814 8.35313 8.1814 6.80625C8.1814 6.6 8.21577 6.42813 8.25015 6.22188C8.35327 5.80938 8.07827 5.39688 7.66577 5.29375C7.25327 5.19063 6.84077 5.46563 6.73765 5.87813C6.6689 6.1875 6.63452 6.49688 6.63452 6.80625C6.63452 9.2125 8.5939 11.1719 11.0001 11.1719C13.4064 11.1719 15.3658 9.2125 15.3658 6.80625C15.3658 6.49688 15.3314 6.1875 15.2626 5.87813C15.1595 5.46563 14.747 5.225 14.3345 5.29375Z"
               fill=""
             />
-          </svg>
+          </svg> */}
         </CardDataStats>
         <CardDataStats title="Total Users" total="3.456" rate="0.95%" levelDown>
           <svg
@@ -106,17 +106,16 @@ const ECommerce: React.FC = () => {
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         <ChartOne />
         <ChartTwo />
-        
-   <div className="col-span-12 xl:col-span-12 flex">
-  <div className="flex-1 mr-4">
-    <TableOne />
-  </div>
-  <div className="flex">
-    <ChartThree />
-  </div>
-</div>
-        
       </div>
+
+      <div className="mt-4 grid grid-cols-3 gap-6">
+          <div className="col-span-2 ">
+            <TableOne />
+          </div>
+          <div className=" col-span-1">
+            <ChartThree />
+          </div>
+        </div>
     </>
   );
 };
