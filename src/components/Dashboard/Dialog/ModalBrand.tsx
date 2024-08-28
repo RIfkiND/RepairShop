@@ -28,7 +28,6 @@ type BrandFormData = {
 export function ModalBrand() {
   const [file, setFile] = useState<File | null>(null);
 
-  // Define form with React Hook Form
   const { register, handleSubmit, formState: { errors }, setValue } = useForm<BrandFormData>({
     resolver: zodResolver(BrandSchema),
   });
