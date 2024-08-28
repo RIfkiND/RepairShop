@@ -4,7 +4,7 @@ import { BrandSchema } from "@/schemas/BrandSchema";
 import { z } from "zod";
 
 
-
+type Brand = z.infer<typeof BrandSchema>
 export async function GET(request: Request){
     const brands = await db.brand.findMany()
 
@@ -20,10 +20,11 @@ export async function GET(request: Request){
 
 export async function POST(request: Request){
     try {
-      
+        
         const body = await request.json();
         const parsedData = BrandSchema.parse(body);
     
+        
         const brand = await db.brand.create({
           data: {
             name: parsedData.name,
@@ -31,6 +32,7 @@ export async function POST(request: Request){
           },
         });
     
+
         return NextResponse.json(
           {
             success: true,
