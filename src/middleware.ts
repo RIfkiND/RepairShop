@@ -6,7 +6,7 @@ import { auth } from "../auth/auth";
 const protectedRoutes = ["/admin/dashboard"];
 
 //  berapa limit request
-const RATE_LIMIT = 100000;
+const RATE_LIMIT = 10000;
 //waktu  batas waktu dari setiaprequest
 const WINDOW_MS = 15 * 60 * 1000;
 

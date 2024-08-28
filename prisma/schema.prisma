@@ -94,7 +94,7 @@ model Model {
   id String @id @default(uuid())
   name String
   image String
-   device Devices[]
+  device Devices[]
   parts Parts[]
   @@map("models")
 }

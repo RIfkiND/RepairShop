@@ -54,5 +54,5 @@ signIn: 'admin/signin'
         return user;
       },
     }),
-  ],
+  ],  
 });
