@@ -1,5 +1,6 @@
+"use client"
 import Image from "next/image";
-import { Product } from "@/types/Repairs";
+import React, { useEffect, useState } from 'react';
 import { ModalParts } from "../Dialog/ModalParts";
 
 const productData: Product[] = [  
@@ -14,7 +15,48 @@ const productData: Product[] = [
 
 ];
 
+interface Part {
+  id: string;
+  name: string;
+  brand_name: string;
+  model: string;
+  image: string;
+  cost: string; // Use string if handling Decimal, otherwise adjust based on your API
+  stock: number;
+}
+
+
 const TableTwo = () => {
+
+  const [parts, setParts] = useState<Part[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchParts = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/admin/parts');
+        
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        
+        if (data.succes) {
+          setParts(data.data);
+        } else {
+          setError('Failed to fetch parts');
+        }
+      } catch (error) {
+        setError('An error occurred while fetching data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchParts();
+  }, []);
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className=" flex px-4 py-6 md:px-6 xl:px-7.5">
@@ -44,38 +86,38 @@ const TableTwo = () => {
         
       </div>
 
-      {productData.map((product, key) => (
+      {parts.map((part, id) => (
         <div
           className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
-          key={key}
+          key={id}
         >
           <div className="col-span-3 flex items-center">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <div className="h-12.5 w-15 rounded-md">
                 <Image
-                  src={product.image}
+                  src={part.image}
                   width={60}
                   height={50}
                   alt="Product"
                 />
               </div>
               <p className="text-sm text-black dark:text-white">
-                {product.name}
+                {part.name}
               </p>
             </div>
           </div>
           <div className="col-span-2 hidden items-center sm:flex">
             <p className="text-sm text-black dark:text-white">
-              {product.category}
+              {part.brand_name}
             </p>
           </div>
           <div className="col-span-1 flex items-center">
             <p className="text-sm text-black dark:text-white">
-              ${product.price}
+              ${part.cost}
             </p>
           </div>
           <div className="col-span-1 flex items-center">
-            <p className="text-sm text-black dark:text-white">{product.sold}</p>
+            <p className="text-sm text-black dark:text-white">{part.stock}</p>
           </div>
           <div className="col-span-1 flex items-center space-x-3.5">
           <button className="hover:text-primary">

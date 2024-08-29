@@ -128,11 +128,12 @@ model Repair_Parts{
 model Parts{
   id String @id @default(uuid())
   name String
-  brand String
-  mode String
+  brand_name String
+  model_name String
   image String 
   cost Decimal
   stock Int @db.SmallInt
+
 }
 
 
