@@ -75,40 +75,15 @@ model Customer{
   review    Review[]
   transactions Transactions[]
 }
-model type {
-  id String @id @default(uuid())
-  name String
-  device  Devices[]
-}
-model Brand {
-  id String @id @default(uuid())
-  name String 
-  image String
-  device Devices[]
-  parts Parts[]
 
-@@map("brands")
-}
-
-model Model {
-  id String @id @default(uuid())
-  name String
-  image String
-  device Devices[]
-  parts Parts[]
-  @@map("models")
-}
 model Devices {
 id String @id @default(uuid())
 customer Customer @relation(fields: [customerId],references: [id])
 customerId String
-type type @relation(fields: [typeId], references: [id])
-typeId String
+type String
 device_name String
-brand  Brand @relation(fields: [brandId],references: [id])
-brandId String
-model Model @relation(fields: [modelId],references: [id])
-modelId String
+brand String
+model String
 serial_number String @unique
 repair_request Repair_Request[]
 
@@ -153,10 +128,8 @@ model Repair_Parts{
 model Parts{
   id String @id @default(uuid())
   name String
-  brand Brand @relation(fields: [brandId],references: [id])
-  brandId String
-  model Model @relation(fields: [modelId],references: [id])
-  modelId String
+  brand String
+  mode String
   image String 
   cost Decimal
   stock Int @db.SmallInt
