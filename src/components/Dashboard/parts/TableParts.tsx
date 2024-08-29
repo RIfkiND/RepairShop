@@ -19,7 +19,7 @@ interface Part {
   id: string;
   name: string;
   brand_name: string;
-  model: string;
+  model_name: string;
   image: string;
   cost: string; // Use string if handling Decimal, otherwise adjust based on your API
   stock: number;
@@ -66,21 +66,24 @@ const TableTwo = () => {
         <ModalParts/>
       </div>
       
-      <div className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-        <div className="col-span-3 flex items-center">
+      <div className="grid grid-cols-7 gap-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+        <div className="col-span-2   flex items-center ">
           <p className="font-medium">Parts Name</p>
         </div>
-        <div className="col-span-2 hidden items-center sm:flex">
-          <p className="font-medium">type</p>
+        <div className="col-span-1 hidden items-center sm:flex justify-center">
+          <p className="font-medium">Brand</p>
         </div>
-        <div className="col-span-1 flex items-center">
+        <div className="col-span-1 hidden items-center sm:flex justify-center">
+          <p className="font-medium">Model</p>
+        </div>
+        <div className="col-span-1 flex items-center justify-center">
           <p className="font-medium">Price</p>
         </div>
         
-        <div className="col-span-1 flex items-center">
+        <div className="col-span-1 flex items-center justify-center">
           <p className="font-medium">stock</p>  
         </div>
-        <div className="col-span-1 flex items-center">
+        <div className="col-span-1  flex items-center justify-center">
           <p className="font-medium">actions</p>
         </div>
         
@@ -88,10 +91,10 @@ const TableTwo = () => {
 
       {parts.map((part, id) => (
         <div
-          className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
+          className="grid grid-cols-7 gap-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
           key={id}
         >
-          <div className="col-span-3 flex items-center">
+          <div className="col-span-2 flex items-center ">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <div className="h-12.5 w-15 rounded-md">
                 <Image
@@ -106,20 +109,25 @@ const TableTwo = () => {
               </p>
             </div>
           </div>
-          <div className="col-span-2 hidden items-center sm:flex">
+          <div className="col-span-1 hidden items-center sm:flex justify-center">
             <p className="text-sm text-black dark:text-white">
               {part.brand_name}
             </p>
           </div>
-          <div className="col-span-1 flex items-center">
+          <div className="col-span-1 hidden items-center sm:flex justify-center">
+            <p className="text-sm text-black dark:text-white">
+              {part.model_name}
+            </p>
+          </div>
+          <div className="col-span-1 flex items-center justify-center">
             <p className="text-sm text-black dark:text-white">
               ${part.cost}
             </p>
           </div>
-          <div className="col-span-1 flex items-center">
+          <div className="col-span-1 flex items-center justify-center">
             <p className="text-sm text-black dark:text-white">{part.stock}</p>
           </div>
-          <div className="col-span-1 flex items-center space-x-3.5">
+          <div className="col-span-1 flex items-center justify-center space-x-3.5">
           <button className="hover:text-primary">
                       <svg
                         className="fill-current"
