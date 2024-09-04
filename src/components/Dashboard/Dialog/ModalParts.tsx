@@ -14,13 +14,14 @@ import { Plus } from "lucide-react";
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 import { message, Upload } from 'antd';
-
+import 'antd/dist/reset.css';
 const { Dragger } = Upload;
+
 
 export function ModalParts() {
   const props: UploadProps = {
     name: 'file',
-    multiple: true,
+    multiple: false,
     action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
     onChange(info) {
       const { status } = info.file;
@@ -37,6 +38,7 @@ export function ModalParts() {
       console.log('Dropped files', e.dataTransfer.files);
     },
   };
+  
   
   return (
     <Dialog>
@@ -114,7 +116,7 @@ export function ModalParts() {
             </select>
           </div>
          
-          <div className="flex flex-col justify-center gap-4">
+          <div className="flex flex-col justify-center mb-30 gap-4">
             <Label
               htmlFor="file"
               className="text-left text-black dark:text-white"
@@ -134,12 +136,12 @@ export function ModalParts() {
             >
               File
             </Label>
-            <Dragger {...props}>
+            <Dragger {...props} className="!text-white  dark:text-white">
     <p className="ant-upload-drag-icon">
       <InboxOutlined />
     </p>
-    <p className="ant-upload-text">Click or drag file to this area to upload</p>
-    <p className="ant-upload-hint">
+    <p className=" text-black dark:text-white text-lg ">Click or drag file to this area to upload</p>
+    <p className="opacity-70 text-black dark:text-white">
       Support for a single or bulk upload. Strictly prohibited from uploading company data or other
       banned files.
     </p>
