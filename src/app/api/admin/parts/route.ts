@@ -14,6 +14,8 @@ const PartsSchema = z.object({
   stock: z.number()
 })
 
+type partstype = z.infer<typeof PartsSchema>
+
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get('page') || '1');
@@ -22,8 +24,9 @@ export async function GET(request: Request) {
   const { skip, take } = getPaginationParams(page, pageSize);
 
 
+
   try {
-    const [partss, totalpartss] = await Promise.all([
+    const [partss, totalpartss]: [partstype[], number] = await Promise.all([
       db.parts.findMany({
         skip,
         take,

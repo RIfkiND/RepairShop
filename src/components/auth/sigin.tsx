@@ -27,9 +27,9 @@ const SignIn: React.FC = () => {
     const result = await loginWithCreds(formData);
     if (result.error) {
       console.error(result.error);
-      // Handle the error (e.g., display a message to the user)
+     
     } else if (result.success) {
-      // Handle successful login (e.g., redirect to dashboard)
+     
     }
   };
    return (

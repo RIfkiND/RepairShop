@@ -56,7 +56,7 @@ const stock = parseInt(formData.get("stock") as string, 10) || 0;
     await writeFile(`${uploadDir}/${filename}`, buffer);
     const fileUrl = `${relativeUploadDir}/${filename}`;
 
-    // Save to database
+   
     const result = await db.parts.create({
       data: {
         name,
