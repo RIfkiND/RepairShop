@@ -21,16 +21,22 @@ export async function GET(request: Request) {
 
   const { skip, take } = getPaginationParams(page, pageSize);
 
-  const [partss, totalpartss] = await Promise.all([
-    db.parts.findMany({
-      skip,
-      take,
-      orderBy: { model_name: 'desc' },
-    }),
-    db.parts.count(),
-  ]);
 
-  const totalPages = Math.ceil(totalpartss / pageSize);
+  try {
+    const [partss, totalpartss] = await Promise.all([
+      db.parts.findMany({
+        skip,
+        take,
+        orderBy: { model_name: 'desc' },
+      }),
+      db.parts.count(),
+    ]);
 
-  return NextResponse.json({ data: partss, totalPages, currentPage: page });
+    const totalPages = Math.ceil(totalpartss / pageSize);
+
+    return NextResponse.json({ data: partss, totalPages, currentPage: page }, { status: 200 });
+  } catch (error) {
+    console.error('Error in API route:', error);
+    return NextResponse.json({ error: 'Failed to fetch data' }, { status: 500 });
+  }
 }

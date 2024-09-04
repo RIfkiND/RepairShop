@@ -1,19 +1,7 @@
-"use client"
+"use client";
 import Image from "next/image";
 import React, { useEffect, useState } from 'react';
 import { ModalParts } from "../Dialog/ModalParts";
-
-const productData: Product[] = [  
-  {
-    image: "/images/product/product-01.png",
-    name: "Apple Watch Series 7",
-    category: "Electronics",
-    price: 296,
-    sold: 22,
-    profit: 45,
-  },
-
-];
 
 interface Part {
   id: string;
@@ -21,42 +9,53 @@ interface Part {
   brand_name: string;
   model_name: string;
   image: string;
-  cost: string; // Use string if handling Decimal, otherwise adjust based on your API
+  cost: string;
   stock: number;
 }
 
-
 const TableTwo = () => {
-
   const [parts, setParts] = useState<Part[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [totalPages, setTotalPages] = useState(0);  
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
 
   useEffect(() => {
     const fetchParts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/admin/parts');
-        
+        const response = await fetch(`http://localhost:3000/api/admin/parts?page=${currentPage}&pageSize=${pageSize}`,{ cache:"force-cache",next:{
+          revalidate:3600,
+        }});
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
 
         const data = await response.json();
-        
-        if (data.succes) {
+
+      
+        console.log('Fetched data:', data);
+
+        if (data.data) { 
           setParts(data.data);
+          setTotalPages(data.totalPages);
         } else {
           setError('Failed to fetch parts');
         }
       } catch (error) {
         setError('An error occurred while fetching data');
+        console.error(error); 
       } finally {
         setLoading(false);
       }
     };
 
     fetchParts();
-  }, []);
+  }, [currentPage, pageSize]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className=" flex px-4 py-6 md:px-6 xl:px-7.5">
@@ -196,8 +195,22 @@ const TableTwo = () => {
           </div>
         </div>
       ))}
+      <div className="flex justify-center py-4">
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map(page => (
+          <button
+            key={page}
+            onClick={() => handlePageChange(page)}
+            disabled={page === currentPage}
+            className={`px-4 py-2 mx-1 ${page === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          >
+            {page}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default TableTwo;
+
+
