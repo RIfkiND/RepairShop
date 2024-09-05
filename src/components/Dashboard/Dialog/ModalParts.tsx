@@ -8,55 +8,62 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Plus,Filter } from "lucide-react";
-import { InboxOutlined } from '@ant-design/icons';
-import type { UploadProps } from 'antd';
-import { message, Upload } from 'antd';
-import 'antd/dist/reset.css';
-const { Dragger } = Upload;
+import { Plus } from "lucide-react";
+import { InboxOutlined } from "@ant-design/icons";
+import type { UploadProps } from "antd";
+import { message, Upload } from "antd";
 
+import "antd/dist/reset.css";
+const { Dragger } = Upload;
 
 export function ModalParts() {
   const props: UploadProps = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
+    action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
+      if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
     onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files);
+      console.log("Dropped files", e.dataTransfer.files);
     },
   };
-  
-  
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" >
+        <Button variant="ghost">
           <Plus />
         </Button>
       </DialogTrigger>
-      <DialogContent className="overflow-y-auto mt-2 z-999 scrollbar-none dark:bg-boxdark-2 sm:max-h-[700px] sm:max-w-[800px]">
+      <DialogContent className="z-999 mt-2 overflow-y-auto scrollbar-none dark:bg-boxdark-2 sm:max-h-[700px] sm:max-w-[800px]">
         <DialogHeader>
           <DialogTitle>Add Parts</DialogTitle>
-          <DialogDescription>
-           From For Adding Parts
-          </DialogDescription>
+          <DialogDescription>From For Adding Parts</DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-2 gap-4 py-4">
           <div className="flex flex-col justify-center  gap-4">
-            <Label              htmlFor="name"
+            <Label
+              htmlFor="name"
               className="text-left text-black dark:text-white"
             >
               Name
@@ -74,22 +81,28 @@ export function ModalParts() {
             >
               Brand
             </Label>
-            <select
-              id="brand"
-              className="text-black dark:bg-white dark:text-black"
-            >
-              <option value="">Select a brand</option>
-              <option value="brand1">Brand 1</option>
-              <option value="brand2">Brand 2</option>
-              <option value="brand3">Brand 3</option>
-            </select>
+            <Select>
+              <SelectTrigger>
+                <SelectValue className="text-black dark:text-white" />
+              </SelectTrigger>
+              <SelectContent className="z-999  ">
+                <SelectGroup>
+                  <SelectLabel>Fruits</SelectLabel>
+                  <SelectItem value="apple">Apple</SelectItem>
+                  <SelectItem value="banana">Banana</SelectItem>
+                  <SelectItem value="blueberry">Blueberry</SelectItem>
+                  <SelectItem value="grapes">Grapes</SelectItem>
+                  <SelectItem value="pineapple">Pineapple</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
           <div className="flex flex-col justify-center gap-4">
             <Label
               htmlFor="file"
               className="text-left text-black dark:text-white"
             >
-             cost
+              cost
             </Label>
             <Input
               id="picture"
@@ -104,24 +117,29 @@ export function ModalParts() {
             >
               model
             </Label>
-            <select
-              id="model"
-              className="text-black dark:bg-white dark:text-black"
-            >
-              <option value="">Select a model</option>
-              <option value="model1">Model 1</option>
-              <option value="model2">Model 2</option>
-              <option value="model3">Model 3</option>
-              {/* Add more options as needed */}
-            </select>
+            <Select>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="z-999">
+                <SelectGroup>
+                  <SelectLabel>Fruits</SelectLabel>
+                  <SelectItem value="apple">Apple</SelectItem>
+                  <SelectItem value="banana">Banana</SelectItem>
+                  <SelectItem value="blueberry">Blueberry</SelectItem>
+                  <SelectItem value="grapes">Grapes</SelectItem>
+                  <SelectItem value="pineapple">Pineapple</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
-         
-          <div className="flex flex-col justify-center mb-30 gap-4">
+
+          <div className="mb-30 flex flex-col justify-center gap-4">
             <Label
               htmlFor="file"
               className="text-left text-black dark:text-white"
             >
-             stock
+              stock
             </Label>
             <Input
               id="picture"
@@ -137,15 +155,17 @@ export function ModalParts() {
               File
             </Label>
             <Dragger {...props} className="!text-white  dark:text-white">
-    <p className="ant-upload-drag-icon">
-      <InboxOutlined />
-    </p>
-    <p className=" text-black dark:text-white text-lg ">Click or drag file to this area to upload</p>
-    <p className="opacity-70 text-black dark:text-white">
-      Support for a single or bulk upload. Strictly prohibited from uploading company data or other
-      banned files.
-    </p>
-  </Dragger>
+              <p className="ant-upload-drag-icon">
+                <InboxOutlined />
+              </p>
+              <p className=" text-lg text-black dark:text-white ">
+                Click or drag file to this area to upload
+              </p>
+              <p className="text-black opacity-70 dark:text-white">
+                Support for a single or bulk upload. Strictly prohibited from
+                uploading company data or other banned files.
+              </p>
+            </Dragger>
           </div>
         </div>
         <DialogFooter className="mt-5">
@@ -155,4 +175,3 @@ export function ModalParts() {
     </Dialog>
   );
 }
-

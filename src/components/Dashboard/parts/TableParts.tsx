@@ -2,8 +2,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from 'react';
 import { ModalParts } from "../Dialog/ModalParts";
-import { Filter } from "lucide-react";
-
+import FilterPartsDropdown from "./FillTer";
 interface Part {
   id: string;
   name: string;
@@ -63,7 +62,7 @@ const TableTwo = () => {
         <h4 className=" text-xl font-semibold text-black dark:text-white flex flex-1 ">
         Parts
         </h4>
-       <Filter className="mt-2 ml-2"/>
+       <FilterPartsDropdown/>
         <ModalParts/>
       </div>
       
@@ -209,8 +208,10 @@ const TableTwo = () => {
           </button>
         ))}
       </div>
+     
     </div>
-  );
+    
+);
 };
 
 export default TableTwo;
