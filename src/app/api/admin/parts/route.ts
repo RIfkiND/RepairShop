@@ -26,7 +26,7 @@ export async function GET(request: Request) {
 
 
   try {
-    const [partss, totalpartss]: [partstype[], number] = await Promise.all([
+    const [partss, totalpartss]: [partstype[],number] = await Promise.all([
       db.parts.findMany({
         skip,
         take,

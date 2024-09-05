@@ -126,7 +126,7 @@ const menuGroups = [
           </svg>
         ),
         label: "Profile",
-        route: "/profile",
+        route: "/admin/dashboard/profile",
       },
       {
         icon: (
@@ -161,7 +161,7 @@ const menuGroups = [
           </svg>
         ),
         label: "Settings",
-        route: "admin/settings",
+        route: "/admin/dashboard/settings",
       },
     ],
   },

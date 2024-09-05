@@ -10,7 +10,14 @@ import { Navbar } from "@/components/Home/Navbar";
 import {FloatRequest} from "@/components/Home/FloatRequest";
 import { benefitOne, benefitTwo } from  "@/components/Home/data";
 import { Button } from "@/components/ui/button";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title:
+    "Home",
+    
+  
+};
 export default function Home() {
   return (
     <Container>
