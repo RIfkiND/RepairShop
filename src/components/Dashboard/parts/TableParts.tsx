@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from 'react';
 import { ModalParts } from "../Dialog/ModalParts";
+import { Filter } from "lucide-react";
 
 interface Part {
   id: string;
@@ -24,7 +25,7 @@ const TableTwo = () => {
   useEffect(() => {
     const fetchParts = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/admin/parts?page=${currentPage}&pageSize=${pageSize}`,{ cache:"force-cache",next:{
+        const response = await fetch(`http://localhost:3000/api/admin/parts?page=${currentPage}&pageSize=${pageSize}`,{ cache:"default",next:{
           revalidate:3600,
         }});
         if (!response.ok) {
@@ -62,6 +63,7 @@ const TableTwo = () => {
         <h4 className=" text-xl font-semibold text-black dark:text-white flex flex-1 ">
         Parts
         </h4>
+       <Filter className="mt-2 ml-2"/>
         <ModalParts/>
       </div>
       

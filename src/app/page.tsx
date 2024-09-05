@@ -15,8 +15,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title:
     "Home",
-    
-  
+    icons: {
+      icon: '/favicon.png',
+    },
 };
 export default function Home() {
   return (

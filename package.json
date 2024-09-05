@@ -10,7 +10,9 @@
     "email": "email dev"
   },
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seeder/seed.ts"
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seeder/seed.ts",
+    "refresh": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seeder/refresh.ts"
+    
   },
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.1",

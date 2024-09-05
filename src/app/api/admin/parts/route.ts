@@ -3,18 +3,7 @@ import _ from "lodash";
 import { db } from "../../../../../config/db";
 import z from "zod"
 import { getPaginationParams } from "@/lib/pagination";
-import { Parts } from '../../../../schemas/PartsSchema';
-const PartsSchema = z.object({
-  id: z.string(),
-  name : z.string(),
-  image: z.string().optional(),
-  brand_name : z.string(),
-  cost: z.number(),
-  model_name:z.string(),
-  stock: z.number()
-})
 
-type partstype = z.infer<typeof PartsSchema>
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -26,11 +15,13 @@ export async function GET(request: Request) {
 
 
   try {
-    const [partss, totalpartss]: [partstype[],number] = await Promise.all([
+    const [partss, totalpartss]: [any[],number] = await Promise.all([
       db.parts.findMany({
-        skip,
+        skip  ,
         take,
-        orderBy: { model_name: 'desc' },
+        orderBy: { 
+          brand_name:"asc",
+        },
       }),
       db.parts.count(),
     ]);

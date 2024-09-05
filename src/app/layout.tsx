@@ -8,6 +8,9 @@ import React, { useEffect, useState } from "react";
 import Loader from "@/components/common/Loader";
 import { cn } from "@/lib/utils"  
 
+
+
+
 export default function RootLayout({
   children,
 }: Readonly<{

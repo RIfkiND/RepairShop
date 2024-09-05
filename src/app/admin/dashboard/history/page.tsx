@@ -6,7 +6,9 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 export const metadata: Metadata = {
   title:
     "Admin Dashboard",
-  
+    icons: {
+      icon: '/favicon.png',
+    },
 };
 
 const TablesPage = () => {

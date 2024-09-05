@@ -7,7 +7,9 @@ import RepairHistoryTable from "@/components/Dashboard/Calender/RepairHistoryTab
 export const metadata: Metadata = {
   title:
     "Admin Dashboard",
-  
+    icons: {
+      icon: '/favicon.png',
+    },
 };
 
 const CalendarPage = () => {
