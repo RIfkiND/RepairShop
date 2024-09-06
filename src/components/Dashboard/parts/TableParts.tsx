@@ -2,7 +2,8 @@
 import Image from "next/image";
 import React, { useEffect, useState } from 'react';
 import { ModalParts } from "../Dialog/ModalParts";
-import FilterPartsDropdown from "./FillTer";
+
+import { Input } from "@/components/ui/input";
 interface Part {
   id: string;
   name: string;
@@ -19,12 +20,13 @@ const TableTwo = () => {
   const [error, setError] = useState<string | null>(null);
   const [totalPages, setTotalPages] = useState(0);  
   const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState(''); 
   const pageSize = 10;
 
   useEffect(() => {
-    const fetchParts = async () => {
+    const fetchParts = async (page: number, search: string) => {
       try {
-        const response = await fetch(`http://localhost:3000/api/admin/parts?page=${currentPage}&pageSize=${pageSize}`,{ cache:"default",next:{
+        const response = await fetch(`http://localhost:3000/api/admin/parts?search=${search}&page=${currentPage}&pageSize=${pageSize}`,{ cache:"default",next:{
           revalidate:3600,
         }});
         if (!response.ok) {
@@ -50,19 +52,23 @@ const TableTwo = () => {
       }
     };
 
-    fetchParts();
-  }, [currentPage, pageSize]);
+    fetchParts(currentPage, search);
+  }, [currentPage, pageSize ,search]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-      <div className=" flex px-4 py-6 md:px-6 xl:px-7.5">
+      <div className="flex items-center px-4 py-6 md:px-6 xl:px-7.5">
         <h4 className=" text-xl font-semibold text-black dark:text-white flex flex-1 ">
         Parts
         </h4>
-       <FilterPartsDropdown/>
+        <Input  id="search"
+              placeholder="search.."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className=" max-w-lg border dark:border-white text-black dark:bg-boxdark dark:text-white"/>
         <ModalParts/>
       </div>
       
