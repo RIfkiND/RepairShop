@@ -50,6 +50,7 @@
     "react-email": "2.1.6",
     "react-hook-form": "^7.52.2",
     "react-quill": "^2.0.0",
+    "resend": "^4.0.0",
     "tailwind-merge": "^2.4.0",
     "tailwind-scrollbar": "^3.1.0",
     "tailwindcss-animate": "^1.0.7",

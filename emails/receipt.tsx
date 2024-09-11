@@ -17,9 +17,15 @@ import * as React from "react"
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "";
-
-export const AppleReceiptEmail = () => (
-  <Html>
+  interface EmailTemplateProps {
+    firstName: string;
+  }
+  
+  export const ReceiptEmail: React.FC<Readonly<EmailTemplateProps>> = ({
+    firstName,
+  }) => (
+  
+    <Html>
     <Head />
     <Preview>Apple Receipt</Preview>
 
@@ -235,9 +241,11 @@ export const AppleReceiptEmail = () => (
       </Container>
     </Body>
   </Html>
-);
 
-export default AppleReceiptEmail;
+  );
+
+
+
 
 const main = {
   fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
