@@ -22,7 +22,7 @@ export async function GET(request:Request,{params}:{params :{id :string}}) {
         if(!parts){
             return NextResponse.json({
                 success:false,
-                massage:"Ther is No parts "
+                massage:"There is No parts "
             },{
                 status:404
             })
@@ -44,7 +44,6 @@ export async function GET(request:Request,{params}:{params :{id :string}}) {
   export async function PUT(request: Request, { params }: { params: { id: string } }) {
     try {
       const formData = await request.formData();
-      
       const name = formData.get("name") as string;
       const image = formData.get("image") as File | null;
       const model_name = formData.get("model_name") as string;
