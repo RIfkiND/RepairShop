@@ -146,7 +146,7 @@ export function ModalParts() {
               className="text-black  dark:bg-white"
             />
           </div>
-          <div className="flex flex-col justify-center gap-4">
+          <div className="flex flex-col justify-center gap-4">   
             <Label
               htmlFor="file"
               className="text-left text-black dark:text-white"
