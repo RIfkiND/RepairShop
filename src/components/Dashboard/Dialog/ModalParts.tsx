@@ -20,32 +20,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
-import { InboxOutlined } from "@ant-design/icons";
-import type { UploadProps } from "antd";
-import { message, Upload } from "antd";
-import "antd/dist/reset.css"
-const { Dragger } = Upload;
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { PartsSchemas } from "@/schemas/PartsSchema";
 
 export function ModalParts() {
-  const props: UploadProps = {
-    name: "file",
-    multiple: false,
-    action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
-    onChange(info) {
-      const { status } = info.file;
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (status === "done") {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-    onDrop(e) {
-      console.log("Dropped files", e.dataTransfer.files);
-    },
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(PartsSchemas),
+  });
+  
 
   return (
     <Dialog>
@@ -133,7 +120,7 @@ export function ModalParts() {
             </Select>
           </div>
 
-          <div className="mb-30 flex flex-col justify-center gap-4">
+          <div className="flex flex-col justify-center gap-4">
             <Label
               htmlFor="file"
               className="text-left text-black dark:text-white"
@@ -153,18 +140,7 @@ export function ModalParts() {
             >
               File
             </Label>
-            <Dragger {...props} className="!text-white  dark:text-white">
-              <p className="ant-upload-drag-icon">
-                <InboxOutlined />
-              </p>
-              <p className=" text-lg text-black dark:text-white ">
-                Click or drag file to this area to upload
-              </p>
-              <p className="text-black opacity-70 dark:text-white">
-                Support for a single or bulk upload. Strictly prohibited from
-                uploading company data or other banned files.
-              </p>
-            </Dragger>
+              <Input type="file"/>
           </div>
         </div>
         <DialogFooter className="mt-5">

@@ -128,7 +128,7 @@ export async function GET(request:Request,{params}:{params :{id :string}}) {
      
       }
   
-      // Step 4: Delete the record from the database
+
       await db.parts.delete({
         where: { id },
       });
