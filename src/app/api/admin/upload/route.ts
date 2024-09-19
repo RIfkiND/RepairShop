@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
   const image = (formData.get("image") as File) || null;
   const model_name = formData.get("model_name") as string;
   const brand_name = formData.get("brand_name") as string;
-  const cost = parseFloat(formData.get("cost") as string) || 0;
+  const cost = parseInt(formData.get("cost") as string) || 0;
   const stock = parseInt(formData.get("stock") as string, 10) || 0;
   const buffer = Buffer.from(await image.arrayBuffer());
   const relativeUploadDir = `/uploads/parts/${new Date(Date.now())

@@ -4,15 +4,15 @@ import bcrypt from 'bcryptjs';
 const db = new PrismaClient()
 
 async function main(){
-  const user = {
-    name: 'Admin',
-    email: 'admin@gmail.com',
-    password: await bcrypt.hash('Admin1234', 10),
-  };
+  // const user = {
+  //   name: 'Admin',
+  //   email: 'admin@gmail.com',
+  //   password: await bcrypt.hash('Admin1234', 10),
+  // };
 
-  await db.user.create({
-    data: user,
-  });
+  // await db.user.create({
+  //   data: user,
+  // });
  
   }
 

@@ -115,7 +115,7 @@ export function ModalParts() {
                 Cost
               </Label>
               <Input
-                {...register("cost")}
+                {...register("cost" ,{valueAsNumber:true})}
                 id="cost"
                 type="number"
                 className="text-black dark:bg-white"
@@ -154,7 +154,7 @@ export function ModalParts() {
                 Stock
               </Label>
               <Input
-                {...register("stock")}
+                {...register("stock" ,{ valueAsNumber:true})}
                 id="stock"
                 type="number"
                 className="text-black dark:bg-white"
