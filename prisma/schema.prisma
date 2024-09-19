@@ -135,7 +135,7 @@ model Parts{
   image String 
   cost Decimal
   stock Int @db.SmallInt
- created_at DateTime @default(now())
+  created_at DateTime @default(now())
   updated_at DateTime? 
 }
 
