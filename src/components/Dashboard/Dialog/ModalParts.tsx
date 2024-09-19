@@ -20,19 +20,40 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { PartsSchemas } from "@/schemas/PartsSchema";
+import z from "zod";
+import { CreateParts } from "../server/create";
+
+type PartsFormData = z.infer<typeof PartsSchemas>;
 
 export function ModalParts() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
-  } = useForm({
+  } = useForm<PartsFormData>({
     resolver: zodResolver(PartsSchemas),
   });
-    
+
+  const Create = async (data: PartsFormData) => {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("brand_name", data.brand_name);
+    formData.append("model_name", data.model_name);
+    formData.append("cost", data.cost.toString());
+    formData.append("stock", data.stock.toString());
+    formData.append("image", data.image); // You might need to handle the file input separately
+
+    try {
+      const response = await CreateParts(formData);
+      console.log("User created successfully!", response);
+    } catch (error) {
+      console.error("Error creating user:", error);
+    }
+  };
 
   return (
     <Dialog>
@@ -44,108 +65,121 @@ export function ModalParts() {
       <DialogContent className="z-999 mt-2 overflow-y-auto scrollbar-none dark:bg-boxdark-2 sm:max-h-[700px] sm:max-w-[800px]">
         <DialogHeader>
           <DialogTitle>Add Parts</DialogTitle>
-          <DialogDescription>From For Adding Parts</DialogDescription>
+          <DialogDescription>Form for Adding Parts</DialogDescription>
         </DialogHeader>
-        <div className="grid grid-cols-2 gap-4 py-4">
-          <div className="flex flex-col justify-center  gap-4">
-            <Label
-              htmlFor="name"
-              className="text-left text-black dark:text-white"
-            >
-              Name
-            </Label>
-            <Input
-              id="name"
-              placeholder="name.."
-              className="col-span-3 text-black dark:bg-white dark:text-black"
-            />
-          </div>
-          <div className="flex flex-col justify-center  gap-4">
-            <Label
-              htmlFor="brand"
-              className="text-left text-black dark:text-white"
-            >
-              Brand
-            </Label>
-            <Select>
-              <SelectTrigger>
-                <SelectValue className="text-black dark:text-white" />
-              </SelectTrigger>
-              <SelectContent className="z-999  ">
-                <SelectGroup>
-                  <SelectLabel>Brand</SelectLabel>
-                  <SelectItem value="samsung">Samsung</SelectItem>
-                  <SelectItem value="apple">apple</SelectItem>
-                  <SelectItem value="xiaomi">xiaomi</SelectItem>
-                  <SelectItem value="oppo">oppo</SelectItem>
-                  <SelectItem value="infinix">infinix</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="flex flex-col justify-center gap-4">
-            <Label
-              htmlFor="file"
-              className="text-left text-black dark:text-white"
-            >
-              cost
-            </Label>
-            <Input
-              id="picture"
-              type="number"
-              className="text-black  dark:bg-white"
-            />
-          </div>
-          <div className="flex flex-col justify-center gap-4">
-            <Label
-              htmlFor="model"
-              className="text-left text-black dark:text-white"
-            >
-              model
-            </Label>
-            <Select  >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className="z-999">
-                <SelectGroup >
-                  <SelectLabel >Fruits</SelectLabel>
-                  <SelectItem value="iphone X">Iphone X</SelectItem>
-                  <SelectItem value="samsung A23">Banana</SelectItem>
-                  <SelectItem value="blueberry">Blueberry</SelectItem>
-                  <SelectItem value="grapes">Grapes</SelectItem>
-                  <SelectItem value="pineapple">Pineapple</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
+        <form onSubmit={handleSubmit(Create)}>
+          <div className="grid grid-cols-2 gap-4 py-4">
+            <div className="flex flex-col justify-center gap-4">
+              <Label htmlFor="name" className="text-left text-black dark:text-white">
+                Name
+              </Label>
+              <Input
+                {...register("name")}
+                id="name"
+                placeholder="name..."
+                className="col-span-3 text-black dark:bg-white dark:text-black"
+              />
+              {errors.name?.message && (
+                <p className="font-light text-red">{errors.name?.message}</p>
+              )}
+            </div>
 
-          <div className="flex flex-col justify-center gap-4">
-            <Label
-              htmlFor="file"
-              className="text-left text-black dark:text-white"
-            >
-              stock
-            </Label>
-            <Input
-              id="picture"
-              type="number"
-              className="text-black  dark:bg-white"
-            />
+            <div className="flex flex-col justify-center gap-4">
+              <Label htmlFor="brand" className="text-left text-black dark:text-white">
+                Brand
+              </Label>
+              <Select 
+                onValueChange={(value) => setValue("brand_name", value)} // Set the selected value
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a brand" className="text-black dark:text-white" />
+                </SelectTrigger>
+                <SelectContent className="z-999">
+                  <SelectGroup>
+                    <SelectLabel>Brand</SelectLabel>
+                    <SelectItem value="samsung">Samsung</SelectItem>
+                    <SelectItem value="apple">Apple</SelectItem>
+                    <SelectItem value="xiaomi">Xiaomi</SelectItem>
+                    <SelectItem value="oppo">Oppo</SelectItem>
+                    <SelectItem value="infinix">Infinix</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              {errors.brand_name?.message && (
+                <p className="font-light text-red">{errors.brand_name.message}</p>
+              )}
+            </div>
+
+            <div className="flex flex-col justify-center gap-4">
+              <Label htmlFor="cost" className="text-left text-black dark:text-white">
+                Cost
+              </Label>
+              <Input
+                {...register("cost")}
+                id="cost"
+                type="number"
+                className="text-black dark:bg-white"
+              />
+              {errors.cost?.message && (
+                <p className="font-light text-red">{errors.cost?.message}</p>
+              )}
+            </div>
+
+            <div className="flex flex-col justify-center gap-4">
+              <Label htmlFor="model" className="text-left text-black dark:text-white">
+                Model
+              </Label>
+              <Select onValueChange={(value) => setValue("model_name", value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a model" />
+                </SelectTrigger>
+                <SelectContent className="z-999">
+                  <SelectGroup>
+                    <SelectLabel>Model</SelectLabel>
+                    <SelectItem value="iphone X">Iphone X</SelectItem>
+                    <SelectItem value="samsung A23">Samsung A23</SelectItem>
+                    <SelectItem value="Infinix note 12">Infinix note 12</SelectItem>
+                    <SelectItem value="Rog Phone">Rog Phone</SelectItem>
+                    <SelectItem value="Shark Phone">Shark Phone</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              {errors.model_name?.message && (
+                <p className="font-light text-red">{errors.model_name.message}</p>
+              )}
+            </div>
+
+            <div className="flex flex-col justify-center gap-4">
+              <Label htmlFor="stock" className="text-left text-black dark:text-white">
+                Stock
+              </Label>
+              <Input
+                {...register("stock")}
+                id="stock"
+                type="number"
+                className="text-black dark:bg-white"
+              />
+              {errors.stock?.message && (
+                <p className="font-light text-red">{errors.stock?.message}</p>
+              )}
+            </div>
+
+            <div className="flex flex-col justify-center gap-4">
+              <Label htmlFor="file" className="text-left text-black dark:text-white">
+                File
+              </Label>
+              <Input
+                {...register("image")} // Register file input
+                id="file"
+                type="file"
+                className="text-black dark:bg-white"
+              />
+            </div>
           </div>
-          <div className="flex flex-col justify-center gap-4">   
-            <Label
-              htmlFor="file"
-              className="text-left text-black dark:text-white"
-            >
-              File
-            </Label>
-              <Input type="file"/>
-          </div>
-        </div>
-        <DialogFooter className="mt-5">
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
+          <DialogFooter className="mt-5">
+            <Button type="submit">Save</Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );

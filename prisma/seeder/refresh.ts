@@ -7,7 +7,7 @@ async function main(){
 await db.devices.deleteMany({})
 await db.parts.deleteMany({})
 await db.customer.deleteMany({})
-
+await db.user.deleteMany({})
   }
 
 

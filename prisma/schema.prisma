@@ -133,8 +133,8 @@ model Parts{
   brand_name String
   model_name String
   image String 
-  cost Decimal
-  stock Int @db.SmallInt
+  cost Int
+  stock Int 
  created_at DateTime @default(now())
   updated_at DateTime? 
 }
