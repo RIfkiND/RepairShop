@@ -32,7 +32,7 @@ export function ModalParts() {
   } = useForm({
     resolver: zodResolver(PartsSchemas),
   });
-  
+    
 
   return (
     <Dialog>
