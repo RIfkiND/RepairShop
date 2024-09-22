@@ -17,6 +17,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast"
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
@@ -24,12 +26,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PartsSchemas } from "@/schemas/PartsSchema";
 import z from "zod";
-import { CreateParts } from "../server/create";
+import { useState } from "react";
 
 type PartsFormData = z.infer<typeof PartsSchemas>;
 
-export function ModalParts() {
-  const {
+export function ModalParts({ onSuccess }:any) {
+    const { toast } = useToast()
+    const [isOpen, setIsOpen] = useState(false); 
+    const {
     register,
     handleSubmit,
     setValue,
@@ -45,18 +49,36 @@ export function ModalParts() {
     formData.append("model_name", data.model_name);
     formData.append("cost", data.cost.toString());
     formData.append("stock", data.stock.toString());
-    formData.append("image", data.image); // You might need to handle the file input separately
-
-    try {
-      const response = await CreateParts(formData);
-      console.log("User created successfully!", response);
-    } catch (error) {
-      console.error("Error creating user:", error);
-    }
+    formData.append("image", data.image[0]);
+      try {
+        const response = await fetch("/api/admin/upload", {
+          method: "POST",
+          body: formData,
+        });
+        if (!response.ok) {
+          throw new Error("Failed to upload");
+        }
+        const result = await response.json();
+        toast({
+          variant: "default",
+          title: "Success",
+          description: result.message, 
+          action: <ToastAction altText="Close">Close</ToastAction>,
+        });
+        setIsOpen(false);
+        onSuccess();
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem with your request.",
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });  
+      }
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost">
           <Plus />

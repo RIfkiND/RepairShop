@@ -23,73 +23,71 @@ const TableTwo = () => {
   const [search, setSearch] = useState(''); 
   const pageSize = 10;
 
-  useEffect(() => {
-    const fetchParts = async (page: number, search: string) => {
-      try {
-        const response = await fetch(`http://localhost:3000/api/admin/parts?search=${search}&page=${currentPage}&pageSize=${pageSize}`,{ cache:"default",next:{
-          revalidate:3600,
-        }});
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-
-      
-        console.log('Fetched data:', data);
-
-        if (data.data) { 
-          setParts(data.data);
-          setTotalPages(data.totalPages);
-        } else {
-          setError('Failed to fetch parts');
-        }
-      } catch (error) {
-        setError('An error occurred while fetching data');
-        console.error(error); 
-      } finally {
-        setLoading(false);
+  const fetchParts = async (page: number, search: string) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`http://localhost:3000/api/admin/parts?search=${search}&page=${page}&pageSize=${pageSize}`, { 
+        cache: "default", 
+        next: { revalidate: 3600 },
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
-    };
 
+      const data = await response.json();
+      if (data.data) { 
+        setParts(data.data);
+        setTotalPages(data.totalPages);
+      } else {
+        setError('Failed to fetch parts');
+      }
+    } catch (error) {
+      setError('An error occurred while fetching data');
+      console.error(error); 
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchParts(currentPage, search);
-  }, [currentPage, pageSize ,search]);
+  }, [currentPage, search]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
   return (
-    <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+    <div className="bg-white border rounded-sm border-stroke shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="flex items-center px-4 py-6 md:px-6 xl:px-7.5">
-        <h4 className=" text-xl font-semibold text-black dark:text-white flex flex-1 ">
+        <h4 className="flex flex-1 text-xl font-semibold text-black dark:text-white">
         Parts
         </h4>
         <Input  id="search"
               placeholder="search.."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className=" max-w-lg border dark:border-white text-black dark:bg-boxdark dark:text-white"/>
-        <ModalParts/>
+              className="max-w-lg text-black border dark:border-white dark:bg-boxdark dark:text-white"/>
+        <ModalParts onSuccess={() => fetchParts(currentPage, search)}/>
       </div>
       
       <div className="grid grid-cols-7 gap-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-        <div className="col-span-2   flex items-center ">
+        <div className="flex items-center col-span-2 ">
           <p className="font-medium">Parts Name</p>
         </div>
-        <div className="col-span-1 hidden items-center sm:flex justify-center">
+        <div className="items-center justify-center hidden col-span-1 sm:flex">
           <p className="font-medium">Brand</p>
         </div>
-        <div className="col-span-1 hidden items-center sm:flex justify-center">
+        <div className="items-center justify-center hidden col-span-1 sm:flex">
           <p className="font-medium">Model</p>
         </div>
-        <div className="col-span-1 flex items-center justify-center">
+        <div className="flex items-center justify-center col-span-1">
           <p className="font-medium">Price</p>
         </div>
         
-        <div className="col-span-1 flex items-center justify-center">
+        <div className="flex items-center justify-center col-span-1">
           <p className="font-medium">stock</p>  
         </div>
-        <div className="col-span-1  flex items-center justify-center">
+        <div className="flex items-center justify-center col-span-1">
           <p className="font-medium">actions</p>
         </div>
         
@@ -100,7 +98,7 @@ const TableTwo = () => {
           className="grid grid-cols-7 gap-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
           key={id}
         >
-          <div className="col-span-2 flex items-center ">
+          <div className="flex items-center col-span-2 ">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <div className="h-12.5 w-15 rounded-md">
                 <Image
@@ -115,22 +113,22 @@ const TableTwo = () => {
               </p>
             </div>
           </div>
-          <div className="col-span-1 hidden items-center sm:flex justify-center">
+          <div className="items-center justify-center hidden col-span-1 sm:flex">
             <p className="text-sm text-black dark:text-white">
               {part.brand_name}
             </p>
           </div>
-          <div className="col-span-1 hidden items-center sm:flex justify-center">
+          <div className="items-center justify-center hidden col-span-1 sm:flex">
             <p className="text-sm text-black dark:text-white">
               {part.model_name}
             </p>
           </div>
-          <div className="col-span-1 flex items-center justify-center">
+          <div className="flex items-center justify-center col-span-1">
             <p className="text-sm text-black dark:text-white">
               ${part.cost}
             </p>
           </div>
-          <div className="col-span-1 flex items-center justify-center">
+          <div className="flex items-center justify-center col-span-1">
             <p className="text-sm text-black dark:text-white">{part.stock}</p>
           </div>
           <div className="col-span-1 flex items-center justify-center space-x-3.5">

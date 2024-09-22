@@ -8,7 +8,9 @@ export const PartsSchemas = z.object({
     .number({ invalid_type_error: "Cost must be a number" })
     .min(1, { message: "Cost must be 1 or greater." }).int(),
     stock: z.number({  invalid_type_error: "stock must be a number",required_error: "Stock Field Must no empty"}).int().min(1, { message: "Stock must be 1 or greater" }),
-    image: z.string().min(1, {message : "This field must no empty"}),
+    image: z.instanceof(FileList).refine((files) => files.length > 0, {
+        message: "An image file is required",
+      }),
     created_at: z.date().optional(), // Optional, as it's set automatically
     updated_at: z.date().optional(), // Optional, as it may not always be set
 })
