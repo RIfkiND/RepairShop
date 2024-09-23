@@ -58,15 +58,16 @@ export function ModalParts({ onSuccess }:any) {
         if (!response.ok) {
           throw new Error("Failed to upload");
         }
-        const result = await response.json();
-        toast({
-          variant: "default",
-          title: "Success",
-          description: result.message, 
-          action: <ToastAction altText="Close">Close</ToastAction>,
-        });
-        setIsOpen(false);
-        onSuccess();
+        else{
+          toast({
+            variant: "default",
+            title: "Succes",
+            description: "The Parts Succesfully add",
+            action: <ToastAction altText="close">Try close</ToastAction>,
+          });  
+          setIsOpen(false);
+          onSuccess();
+        }
       } catch (error) {
         toast({
           variant: "destructive",

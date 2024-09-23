@@ -7,8 +7,11 @@ import { auth } from "../../../../auth/auth";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Next.js Login Page | TailAdmin - Next.js Dashboard Template",
-  description: "This is Next.js Signin Page TailAdmin Dashboard Template",
+  title:
+    "Admin Signin",
+    icons: {
+      icon: '/favicon.png',
+    },
 };
 
 export default async function Login() {

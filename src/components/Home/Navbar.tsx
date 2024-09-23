@@ -37,14 +37,14 @@ export const Navbar = () => {
                   <span className="dark:text-gray-100 flex items-center space-x-2 text-2xl font-medium text-indigo-500">
                     <span>
                       <Image
-                        src="/img/logo.svg"
+                        src="/favicon.png"
                         alt="N"
-                        width="32"
-                        height="32"
+                        width="40"
+                        height="40"
                         className="w-8"
                       />
                     </span>
-                    <span>Nextly</span>
+                    <span>DeRepair</span>
                   </span>
                 </Link>
                 <div className="flex items-center">

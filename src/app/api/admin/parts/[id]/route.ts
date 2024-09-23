@@ -6,40 +6,6 @@ import { join } from "path";
 import { stat, mkdir, writeFile ,unlink} from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 import _ from "lodash";
-import { request } from "http";
-
-
-
-export async function GET(request:Request,{params}:{params :{id :string}}) {
-   
-    const id = params.id as string
-    try {
-        const parts = await db.parts.findUnique({
-            where:{
-                id:id,
-            }
-        })
-        if(!parts){
-            return NextResponse.json({
-                success:false,
-                massage:"There is No parts "
-            },{
-                status:404
-            })
-        }
-
-        return NextResponse.json({
-            success:true,
-            data:parts
-        },{
-            status :200
-        })
-    } catch (error) {
-        console.log(error);
-    }
-   
-  };
-
 
   export async function PUT(request: Request, { params }: { params: { id: string } }) {
     try {
