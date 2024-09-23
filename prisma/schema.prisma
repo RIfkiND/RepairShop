@@ -65,42 +65,16 @@ model VerificationToken {
   @@map("verificationtokens")
 }
 
-model Customer{
-  id String @id @default(uuid())
-  name String
-  email String @unique
-  lokasi String
-  devices       Devices[]
-  repair_request Repair_Request[]
-  review    Review[]
-  transactions Transactions[]
-}
 
-model Devices {
-id String @id @default(uuid())
-customer Customer @relation(fields: [customerId],references: [id])
-customerId String
-type String
-device_name String
-brand String
-model String
-serial_number String @unique
-repair_request Repair_Request[]
-
-}
 
 model Repair_Request{
   id String @id @default(uuid())
   name String
-  customer Customer @relation(fields: [customerId],references: [id])
-  customerId String
-  device Devices @relation(fields: [deviceId],references: [id])
-  deviceId String
-  problem String
-  file String
+  email String @unique
+  category String
   status STATUS @default(PENDING)
   request_date DateTime @default(now())
-  complete_date DateTime
+  complete_date DateTime?
   repair Repairs[]
 }
 
@@ -112,7 +86,6 @@ model Repairs{
   cost Decimal
   repair_date DateTime @default(now())
   repair_parts Repair_Parts[]
-
 }
 
 model Repair_Parts{
@@ -140,22 +113,8 @@ model Parts{
 }
 
 
-
-model Review{
-  id String @id @default(uuid())
-  customer Customer @relation(fields: [customerId],references: [id])
-  customerId  String
-  rating Int @db.SmallInt
-  comment String @db.Text
-  file String? 
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-}
-
 model Transactions {
   id String @id @default(uuid())
-  customer Customer  @relation(fields: [customerId],references: [id])
-  customerId String 
   number String 
   snap_token String?
   status  STATUS @default(PENDING)

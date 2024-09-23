@@ -92,14 +92,12 @@ import _ from "lodash";
       } catch (fileError) {
         console.error("Error while trying to delete the image file\n", fileError);
      
-      }
-  
-
+      } 
       await db.parts.delete({
         where: { id },
       });
   
-      return NextResponse.json({ success: true }, { status: 202 });
+      return NextResponse.json({ success: true  ,status:200} );
     } catch (error) {
       console.error("Error while trying to delete the item\n", error);
       return NextResponse.json({ error: "An unexpected error occurred." }, { status: 500 });

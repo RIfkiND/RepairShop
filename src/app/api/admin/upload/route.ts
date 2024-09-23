@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json({ data: result });
+    return NextResponse.json({ data: result },{status:200});
   } catch (e) {
     console.error("Error while trying to upload a file\n", e);
     return NextResponse.json(

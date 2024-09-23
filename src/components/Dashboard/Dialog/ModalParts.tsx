@@ -6,7 +6,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Select,
@@ -21,23 +20,24 @@ import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Plus } from "lucide-react";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PartsSchemas } from "@/schemas/PartsSchema";
 import z from "zod";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 type PartsFormData = z.infer<typeof PartsSchemas>;
 
 interface ModalPartsProps {
   onSuccess: () => void;
   part?: any;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void; 
 }
 
-export function ModalParts({ onSuccess, part }: ModalPartsProps) {
+export function ModalParts({ onSuccess, part, isOpen, setIsOpen }: ModalPartsProps) {
   const { toast } = useToast();
-  const [isOpen, setIsOpen] = useState(false);
   const {
     register,
     handleSubmit,
@@ -55,7 +55,6 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
       setValue("model_name", part.model_name);
       setValue("cost", part.cost);
       setValue("stock", part.stock);
-      setValue("image", null); 
     }
   }, [part, setValue]);
 
@@ -70,7 +69,7 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
       formData.append("image", data.image[0]); // Only append if there's an image
     }
 
-    const endpoint = part ? `/api/admin/parts/${part.id}` : "/api/admin/upload"; // Use different endpoint for update
+    const endpoint = part ? `/api/admin/parts/${part.id}` : "/api/admin/upload"; 
     const method = part ? "PUT" : "POST"; 
 
     try {
@@ -82,12 +81,12 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
         throw new Error("Failed to upload");
       }
       
-      toast({
-        variant: "default",
-        title: "Success",
-        description: part ? "The part was successfully updated." : "The part was successfully added.",
-        action: <ToastAction altText="close">Close</ToastAction>,
-      });
+      // toast({
+      //   variant: "default",
+      //   title: "Success",
+      //   description: part ? "The part was successfully updated." : "The part was successfully added.",
+      //   action: <ToastAction altText="close">Close</ToastAction>,
+      // });
       setIsOpen(false);
       onSuccess();
     } catch (error) {
@@ -102,11 +101,6 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button variant="ghost">
-          <Plus />
-        </Button>
-      </DialogTrigger>
       <DialogContent className="z-999 mt-2 overflow-y-auto scrollbar-none dark:bg-boxdark-2 sm:max-h-[700px] sm:max-w-[800px]">
         <DialogHeader>
           <DialogTitle>{part ? "Update Parts" : "Add Parts"}</DialogTitle>
@@ -114,29 +108,17 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
         </DialogHeader>
         <form onSubmit={handleSubmit(handleCreateOrUpdate)}>
           <div className="grid grid-cols-2 gap-4 py-4">
+            {/* Name Field */}
             <div className="flex flex-col justify-center gap-4">
-              <Label htmlFor="name" className="text-left text-black dark:text-white">
-                Name
-              </Label>
-              <Input
-                {...register("name")}
-                id="name"
-                placeholder="name..."
-                className="col-span-3 text-black dark:bg-white dark:text-black"
-              />
-              {errors.name?.message && (
-                <p className="font-light text-red">{errors.name?.message}</p>
-              )}
+              <Label htmlFor="name" className="text-left text-black dark:text-white">Name</Label>
+              <Input {...register("name")} id="name" placeholder="name..." className="col-span-3 text-black dark:bg-white dark:text-black" />
+              {errors.name?.message && <p className="font-light text-red">{errors.name?.message}</p>}
             </div>
 
+            {/* Brand Select */}
             <div className="flex flex-col justify-center gap-4">
-              <Label htmlFor="brand" className="text-left text-black dark:text-white">
-                Brand
-              </Label>
-              <Select
-                onValueChange={(value) => setValue("brand_name", value)}
-                defaultValue={part?.brand_name} // Set default value for editing
-              >
+              <Label htmlFor="brand" className="text-left text-black dark:text-white">Brand</Label>
+              <Select onValueChange={(value) => setValue("brand_name", value)} defaultValue={part?.brand_name}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a brand" className="text-black dark:text-white" />
                 </SelectTrigger>
@@ -151,35 +133,20 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
                   </SelectGroup>
                 </SelectContent>
               </Select>
-              {errors.brand_name?.message && (
-                <p className="font-light text-red">{errors.brand_name.message}</p>
-              )}
+              {errors.brand_name?.message && <p className="font-light text-red">{errors.brand_name.message}</p>}
             </div>
 
+            {/* Cost Field */}
             <div className="flex flex-col justify-center gap-4">
-              <Label htmlFor="cost" className="text-left text-black dark:text-white">
-                Cost
-              </Label>
-              <Input
-                {...register("cost", { valueAsNumber: true })}
-                id="cost"
-                type="number"
-                className="text-black dark:bg-white"
-                defaultValue={part?.cost} // Set default value for editing
-              />
-              {errors.cost?.message && (
-                <p className="font-light text-red">{errors.cost?.message}</p>
-              )}
+              <Label htmlFor="cost" className="text-left text-black dark:text-white">Cost</Label>
+              <Input {...register("cost", { valueAsNumber: true })} id="cost" type="number" className="text-black dark:bg-white" defaultValue={part?.cost} />
+              {errors.cost?.message && <p className="font-light text-red">{errors.cost?.message}</p>}
             </div>
 
+            {/* Model Select */}
             <div className="flex flex-col justify-center gap-4">
-              <Label htmlFor="model" className="text-left text-black dark:text-white">
-                Model
-              </Label>
-              <Select
-                onValueChange={(value) => setValue("model_name", value)}
-                defaultValue={part?.model_name} // Set default value for editing
-              >
+              <Label htmlFor="model" className="text-left text-black dark:text-white">Model</Label>
+              <Select onValueChange={(value) => setValue("model_name", value)} defaultValue={part?.model_name}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a model" />
                 </SelectTrigger>
@@ -194,37 +161,20 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
                   </SelectGroup>
                 </SelectContent>
               </Select>
-              {errors.model_name?.message && (
-                <p className="font-light text-red">{errors.model_name.message}</p>
-              )}
+              {errors.model_name?.message && <p className="font-light text-red">{errors.model_name.message}</p>}
             </div>
 
+            {/* Stock Field */}
             <div className="flex flex-col justify-center gap-4">
-              <Label htmlFor="stock" className="text-left text-black dark:text-white">
-                Stock
-              </Label>
-              <Input
-                {...register("stock", { valueAsNumber: true })}
-                id="stock"
-                type="number"
-                className="text-black dark:bg-white"
-                defaultValue={part?.stock} // Set default value for editing
-              />
-              {errors.stock?.message && (
-                <p className="font-light text-red">{errors.stock?.message}</p>
-              )}
+              <Label htmlFor="stock" className="text-left text-black dark:text-white">Stock</Label>
+              <Input {...register("stock", { valueAsNumber: true })} id="stock" type="number" className="text-black dark:bg-white" defaultValue={part?.stock} />
+              {errors.stock?.message && <p className="font-light text-red">{errors.stock?.message}</p>}
             </div>
 
+            {/* File Input */}
             <div className="flex flex-col justify-center gap-4">
-              <Label htmlFor="file" className="text-left text-black dark:text-white">
-                File
-              </Label>
-              <Input
-                {...register("image")}
-                id="file"
-                type="file"
-                className="text-black dark:bg-white"
-              />
+              <Label htmlFor="file" className="text-left text-black dark:text-white">File</Label>
+              <Input {...register("image")} id="file" type="file" className="text-black dark:bg-white" />
             </div>
           </div>
           <DialogFooter className="mt-5">
