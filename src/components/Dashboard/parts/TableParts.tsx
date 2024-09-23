@@ -61,28 +61,35 @@ const TableTwo = () => {
     setCurrentPage(page);
   }; 
 
+  
+
   const deletePart = async (id: string) => {
     if (window.confirm("Are you sure you want to delete this part?")) {
       try {
         const response = await fetch(`/api/admin/parts/${id}`, {
           method: "DELETE",
         });
+        if (response.status === 200){
+          toast({
+            variant: "destructive",
+            title: "Success",
+            description: "The part was successfully deleted.",
+            action: <ToastAction altText="close">Close</ToastAction>,
+          });
+          fetchParts(currentPage, search);
+        }
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        toast({
-          variant: "destructive",
-          title: "Success",
-          description: "The part was successfully deleted.",
-          action: <ToastAction altText="close">Close</ToastAction>,
-        });
-  
-        fetchParts(currentPage, search);
       } catch (error) {
         console.error("Failed to delete part:", error);
       }
     }
   }
+  // const handleEditClick = (part: Part) => {
+  //   setSelectedPart(part);
+  //   setIsModalOpen(true);
+  // };
     return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="flex items-center px-4 py-6 md:px-6 xl:px-7.5">
@@ -179,7 +186,7 @@ const TableTwo = () => {
               </svg>
             </button>
             <button className="hover:text-primary">
-             <Pencil width={25} height={17}/>
+             <Pencil width={25} height={17} />
             </button>
           </div>
         </div>

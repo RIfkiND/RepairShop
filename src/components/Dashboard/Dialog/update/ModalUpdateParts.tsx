@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { ToastAction } from "@/components/ui/toast";
+import { ToastAction } from "@/components/ui/toast"
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
@@ -26,19 +26,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PartsSchemas } from "@/schemas/PartsSchema";
 import z from "zod";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 type PartsFormData = z.infer<typeof PartsSchemas>;
 
-interface ModalPartsProps {
-  onSuccess: () => void;
-  part?: any;
-}
-
-export function ModalParts({ onSuccess, part }: ModalPartsProps) {
-  const { toast } = useToast();
-  const [isOpen, setIsOpen] = useState(false);
-  const {
+export function ModalParts({ onSuccess }:any) {
+    const { toast } = useToast()
+    const [isOpen, setIsOpen] = useState(false); 
+    const {
     register,
     handleSubmit,
     setValue,
@@ -47,57 +42,40 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
     resolver: zodResolver(PartsSchemas),
   });
 
-  useEffect(() => {
-    if (part) {
-      // Populate form with part data if part is provided
-      setValue("name", part.name);
-      setValue("brand_name", part.brand_name);
-      setValue("model_name", part.model_name);
-      setValue("cost", part.cost);
-      setValue("stock", part.stock);
-      setValue("image", null); 
-    }
-  }, [part, setValue]);
-
-  const handleCreateOrUpdate = async (data: PartsFormData) => {
+  const Create = async (data: PartsFormData) => {
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("brand_name", data.brand_name);
     formData.append("model_name", data.model_name);
     formData.append("cost", data.cost.toString());
     formData.append("stock", data.stock.toString());
-    if (data.image) {
-      formData.append("image", data.image[0]); // Only append if there's an image
-    }
-
-    const endpoint = part ? `/api/admin/parts/${part.id}` : "/api/admin/upload"; // Use different endpoint for update
-    const method = part ? "PUT" : "POST"; 
-
-    try {
-      const response = await fetch(endpoint, {
-        method,
-        body: formData,
-      });
-      if (!response.ok) {
-        throw new Error("Failed to upload");
+    formData.append("image", data.image[0]);
+      try {
+        const response = await fetch("/api/admin/upload", {
+          method: "POST",
+          body: formData,
+        });
+        if (!response.ok) {
+          throw new Error("Failed to upload");
+        }
+        else{
+          toast({
+            variant: "default",
+            title: "Succes",
+            description: "The Parts Succesfully add",
+            action: <ToastAction altText="close">Try close</ToastAction>,
+          });  
+          setIsOpen(false);
+          onSuccess();
+        }
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem with your request.",
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });  
       }
-      
-      toast({
-        variant: "default",
-        title: "Success",
-        description: part ? "The part was successfully updated." : "The part was successfully added.",
-        action: <ToastAction altText="close">Close</ToastAction>,
-      });
-      setIsOpen(false);
-      onSuccess();
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request.",
-        action: <ToastAction altText="Try again">Try again</ToastAction>,
-      });
-    }
   };
 
   return (
@@ -109,10 +87,10 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
       </DialogTrigger>
       <DialogContent className="z-999 mt-2 overflow-y-auto scrollbar-none dark:bg-boxdark-2 sm:max-h-[700px] sm:max-w-[800px]">
         <DialogHeader>
-          <DialogTitle>{part ? "Update Parts" : "Add Parts"}</DialogTitle>
-          <DialogDescription>{part ? "Form for Updating Parts" : "Form for Adding Parts"}</DialogDescription>
+          <DialogTitle>Add Parts</DialogTitle>
+          <DialogDescription>Form for Adding Parts</DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit(handleCreateOrUpdate)}>
+        <form onSubmit={handleSubmit(Create)}>
           <div className="grid grid-cols-2 gap-4 py-4">
             <div className="flex flex-col justify-center gap-4">
               <Label htmlFor="name" className="text-left text-black dark:text-white">
@@ -133,9 +111,8 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
               <Label htmlFor="brand" className="text-left text-black dark:text-white">
                 Brand
               </Label>
-              <Select
-                onValueChange={(value) => setValue("brand_name", value)}
-                defaultValue={part?.brand_name} // Set default value for editing
+              <Select 
+                onValueChange={(value) => setValue("brand_name", value)} // Set the selected value
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select a brand" className="text-black dark:text-white" />
@@ -161,11 +138,10 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
                 Cost
               </Label>
               <Input
-                {...register("cost", { valueAsNumber: true })}
+                {...register("cost" ,{valueAsNumber:true})}
                 id="cost"
                 type="number"
                 className="text-black dark:bg-white"
-                defaultValue={part?.cost} // Set default value for editing
               />
               {errors.cost?.message && (
                 <p className="font-light text-red">{errors.cost?.message}</p>
@@ -176,10 +152,7 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
               <Label htmlFor="model" className="text-left text-black dark:text-white">
                 Model
               </Label>
-              <Select
-                onValueChange={(value) => setValue("model_name", value)}
-                defaultValue={part?.model_name} // Set default value for editing
-              >
+              <Select onValueChange={(value) => setValue("model_name", value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a model" />
                 </SelectTrigger>
@@ -204,11 +177,10 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
                 Stock
               </Label>
               <Input
-                {...register("stock", { valueAsNumber: true })}
+                {...register("stock" ,{ valueAsNumber:true})}
                 id="stock"
                 type="number"
                 className="text-black dark:bg-white"
-                defaultValue={part?.stock} // Set default value for editing
               />
               {errors.stock?.message && (
                 <p className="font-light text-red">{errors.stock?.message}</p>
@@ -220,7 +192,7 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
                 File
               </Label>
               <Input
-                {...register("image")}
+                {...register("image")} // Register file input
                 id="file"
                 type="file"
                 className="text-black dark:bg-white"
@@ -228,7 +200,7 @@ export function ModalParts({ onSuccess, part }: ModalPartsProps) {
             </div>
           </div>
           <DialogFooter className="mt-5">
-            <Button type="submit">{part ? "Update" : "Save"}</Button>
+            <Button type="submit">Save</Button>
           </DialogFooter>
         </form>
       </DialogContent>
