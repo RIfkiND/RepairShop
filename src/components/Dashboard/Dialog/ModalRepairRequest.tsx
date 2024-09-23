@@ -22,11 +22,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PartsSchemas } from "@/schemas/PartsSchema"; // Assuming this schema is updated accordingly
+import { RepairRequestSchema} from '@/schemas/RepairRequestSchema';
 import z from "zod";
 import { useEffect } from "react";
 
-type PartsFormData = z.infer<typeof PartsSchemas>;
+type RepairRequestFormData = z.infer<typeof RepairRequestSchema>;
 
 interface ModalRepairRequestProps {
   onSuccess: () => void;
@@ -42,8 +42,8 @@ export function ModalRepairRequest({ part, isOpen, setIsOpen }: ModalRepairReque
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<PartsFormData>({
-    resolver: zodResolver(PartsSchemas),
+  } = useForm<RepairRequestFormData>({
+    resolver: zodResolver(RepairRequestSchema),
   });
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export function ModalRepairRequest({ part, isOpen, setIsOpen }: ModalRepairReque
     }
   }, [part, setValue]);
 
-  const handleCreateOrUpdate = async (data: PartsFormData) => {
+  const handleCreateOrUpdate = async (data: RepairRequestFormData) => {
     const endpoint = part ? `/api/admin/repair-requests/${part.id}` : "/api/admin/repair-requests"; 
     const method = part ? "PUT" : "POST"; 
 
