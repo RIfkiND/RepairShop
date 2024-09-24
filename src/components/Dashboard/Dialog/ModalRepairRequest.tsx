@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RepairRequestSchema} from '@/schemas/RepairRequestSchema';
+import { RepairRequestSchema } from '@/schemas/RepairRequestSchema';
 import z from "zod";
 import { useEffect } from "react";
 
@@ -48,11 +48,12 @@ export function ModalRepairRequest({ part, isOpen, setIsOpen }: ModalRepairReque
 
   useEffect(() => {
     if (part) {
-      // Populate form with part data if part is provided
       setValue("name", part.name);
-      setValue("email", part.email); // Assuming you want to populate email as well
+      setValue("email", part.email);
       setValue("category", part.category);
-      // Set other relevant fields if necessary
+      setValue("status", part.status);
+      setValue("request_date", part.request_date);
+      setValue("complete_date", part.complete_date);
     }
   }, [part, setValue]);
 
@@ -66,7 +67,7 @@ export function ModalRepairRequest({ part, isOpen, setIsOpen }: ModalRepairReque
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data), // Send data as JSON
+        body: JSON.stringify(data),
       });
       if (!response.ok) {
         throw new Error("Failed to submit");
@@ -80,7 +81,6 @@ export function ModalRepairRequest({ part, isOpen, setIsOpen }: ModalRepairReque
       });
 
       setIsOpen(false);
-      // Call onSuccess if needed
     } catch (error) {
       toast({
         variant: "destructive",
@@ -127,15 +127,41 @@ export function ModalRepairRequest({ part, isOpen, setIsOpen }: ModalRepairReque
                     <SelectItem value="Watches">Watches</SelectItem>
                     <SelectItem value="Phones">Phones</SelectItem>
                     <SelectItem value="Laptops">Laptops</SelectItem>
-                    {/* Add more categories as needed */}
                   </SelectGroup>
                 </SelectContent>
               </Select>
               {errors.category?.message && <p className="font-light text-red">{errors.category.message}</p>}
             </div>
 
-            {/* Other Fields */}
-            {/* Add any other relevant fields here */}
+            {/* Status Select */}
+            <div className="flex flex-col justify-center gap-4">
+              <Label htmlFor="status" className="text-left text-black dark:text-white">Status</Label>
+              <Select onValueChange={(value) => setValue("status", value)} defaultValue={part?.status}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a status" className="text-black dark:text-white" />
+                </SelectTrigger>
+                <SelectContent className="z-999">
+                  <SelectGroup>
+                    <SelectLabel>Statuses</SelectLabel>
+                    <SelectItem value="PENDING">Pending</SelectItem>
+                    <SelectItem value="COMPLETED">Completed</SelectItem>
+                    <SelectItem value="CANCELLED">Cancelled</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              {errors.status?.message && <p className="font-light text-red">{errors.status.message}</p>}
+            </div>
+            {/* Complete Date Field */}
+            <div className="flex flex-col justify-center gap-4">
+              <Label htmlFor="complete_date" className="text-left text-black dark:text-white">Complete Date</Label>
+              <Input 
+                type="datetime-local" 
+                {...register("complete_date")} 
+                id="complete_date" 
+                className="col-span-3 text-black dark:bg-white dark:text-black" 
+              />
+              {errors.complete_date?.message && <p className="font-light text-red">{errors.complete_date?.message}</p>}
+            </div>
 
           </div>
           <DialogFooter className="mt-5">
