@@ -36,21 +36,19 @@ export const Faq = () => {
 
 const faqdata = [
   {
-    question: "Is this template completely free to use?",
-    answer: "Yes, this template is completely free to use.",
+    question: "Do you repair all types of devices?",
+    answer: "Yes, we repair smartphones, tablets, laptops, and other electronic devices.",
   },
   {
-    question: "Can I use it in a commercial project?",
-    answer: "Yes, this you can.",
+    question: "How long does a typical repair take?",
+    answer: "Most repairs are completed the same day, depending on the complexity of the issue.",
   },
   {
-    question: "What is your refund policy? ",
-    answer:
-      "If you're unhappy with your purchase for any reason, email us within 90 days and we'll refund you in full, no questions asked.",
+    question: "What is your warranty policy?",
+    answer: "We offer a warranty on all repairs. If you experience any issues after the repair, contact us within 90 days for a free fix.",
   },
   {
-    question: "Do you offer technical support? ",
-    answer:
-      "No, we don't offer technical support for free downloads. Please purchase a support plan to get 6 months of support.",
+    question: "Do you offer a pickup and delivery service?",
+    answer: "Yes, we provide convenient pickup and delivery options for repairs. Contact us to schedule a pickup.",
   },
 ];

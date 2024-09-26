@@ -51,7 +51,7 @@ const RepairHistoryTable = () => {
           Repair History
         </h4>
         <Button className="ml-4" onClick={() => { setSelectedRepair(null); setIsOpen(true); }}>
-          <Plus /> Add Part
+          <Plus /> Add Request
         </Button>
       </div>
 

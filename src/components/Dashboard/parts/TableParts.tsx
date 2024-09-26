@@ -15,7 +15,6 @@ interface Part {
   cost: string;
   stock: number;
 }
-
 const TableParts= () => {
   const [parts, setParts] = useState<Part[]>([]);
   const [selectedPart, setSelectedPart] = useState<Part | null>(null);
@@ -138,7 +137,12 @@ const TableParts= () => {
         </div>
       </div>
 
-      {parts.map((part, id) => (
+
+      {loading ? (
+        <p className="text-center py-4">Loading...</p>
+      ) : parts.length === 0 ? (
+        <p className="text-center py-5 font-semibold">No data available</p>
+      ) : (parts.map((part, id) => (
         <div
           className="grid grid-cols-7 gap-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
           key={id}
@@ -200,7 +204,7 @@ const TableParts= () => {
             </button>
           </div>
         </div>
-      ))}
+      )))}
       <div className="flex justify-center py-4">
         {Array.from({ length: totalPages }, (_, index) => index + 1).map(
           (page) => (

@@ -2,10 +2,8 @@ import { Container } from "@/components/Home/Container";
 import { Hero } from "@/components/Home/Hero";
 import { SectionTitle } from "@/components/Home/SectionTitle";
 import { Benefits } from "@/components/Home/Benefits";
-
 import { Testimonials } from "@/components/Home/Testimonials";
 import { Faq } from "@/components/Home/Faq";
-
 import { Navbar } from "@/components/Home/Navbar";
 import {FloatRequest} from "@/components/Home/FloatRequest";
 import { benefitOne, benefitTwo } from  "@/components/Home/data";
@@ -41,15 +39,13 @@ export default function Home() {
         preTitle="Testimonials"
         title="Here's what our customers said"
       >
-        Testimonials is a great way to increase the brand trust and awareness.
-        Use this section to highlight your popular customers.
+        Testimonials De Repair Services
       </SectionTitle>
 
       <Testimonials />
 
       <SectionTitle preTitle="FAQ" title="Frequently Asked Questions">
-        Answer your customers possible questions here, it will increase the
-        conversion rate as well as support or chat requests.
+  
       </SectionTitle>
 
       <Faq />

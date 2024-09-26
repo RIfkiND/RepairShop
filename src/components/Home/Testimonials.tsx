@@ -2,8 +2,6 @@ import Image from "next/image";
 import React from "react";
 import { Container } from "@/components/Home/Container";
 
-
-
 export const Testimonials = () => {
   return (
     <Container>
@@ -11,42 +9,39 @@ export const Testimonials = () => {
         <div className="lg:col-span-2 xl:col-auto">
           <div className="flex flex-col justify-between w-full h-full bg-gray-100 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
             <p className="text-2xl leading-normal ">
-              Share a real <Mark>testimonial</Mark>
-              that hits some of your benefits from one of your popular customer.
+              I had my phone screen fixed at <Mark>[DeRepair]</Mark> and it works perfectly now! The service was quick and professional.
             </p>
 
             <Avatar
               image={"/img/user1.jpg"}
-              name="Sarah Steiner"
-              title="VP Sales at Google"
+              name="John Doe"
+              title="Happy Customer"
             />
           </div>
         </div>
         <div className="">
           <div className="flex flex-col justify-between w-full h-full bg-gray-100 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
             <p className="text-2xl leading-normal ">
-              Make sure you only pick the <Mark>right sentence</Mark>
-              to keep it short and simple.
+              They repaired my laptop in less than a day! Highly recommend <Mark>[DeRepair]</Mark> for any device repairs.
             </p>
 
             <Avatar
               image={"/img/user2.jpg"}
-              name="Dylan Ambrose"
-              title="Lead marketer at Netflix"
+              name="Jane Smith"
+              title="Freelancer"
             />
           </div>
         </div>
         <div className="">
           <div className="flex flex-col justify-between w-full h-full bg-gray-100 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
             <p className="text-2xl leading-normal ">
-              This is an <Mark>awesome</Mark> landing page template I&apos;ve
-              seen. I would use this for anything.
+              <Mark>Excellent service</Mark> and reasonable prices. My tablet is working perfectly after the repair!
             </p>
 
             <Avatar
               image={"/img/user3.jpg"}
-              name="Gabrielle Winn"
-              title="Co-founder of Acme Inc"
+              name="Michael Lee"
+              title="Business Owner"
             />
           </div>
         </div>
@@ -70,7 +65,6 @@ function Avatar(props: Readonly<AvatarProps>) {
           width="40"
           height="40"
           alt="Avatar"
-          
         />
       </div>
       <div>
@@ -91,3 +85,4 @@ function Mark(props: { readonly children: React.ReactNode }) {
     </>
   );
 }
+  
