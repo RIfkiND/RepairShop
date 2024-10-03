@@ -2,7 +2,7 @@
 
 **Repair Shop** is a Next.js Dashboard Application designed to help repair shop owners efficiently manage their customers' repair requests. The app allows shop owners to track repair devices, manage customer information, and send payment reminder emails, streamlining the repair process from start to finish.
 
-> **Note:** This app is still in active development. New features and improvements are on the way!
+> **Note:** This app is still in early  development.
 
 ---
 
